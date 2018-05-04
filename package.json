@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "http": "0.0.0",
+    "nodemon": "^1.9.2",
     "request": "^2.85.0",
-    "telebot": "^1.2.6",
-    "nodemon": "^1.9.2"
+    "telebot": "^1.2.6"
   },
   "scripts": {
     "start": "nodemon index.js"
