@@ -1,0 +1,18 @@
+{
+  "name": "plbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.85.0"
+  },
+  "devDependencies": {
+    "telebot": "^1.2.6"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
