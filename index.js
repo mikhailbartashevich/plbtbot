@@ -66,6 +66,7 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
 });
 
 bot.on(['/plbt'], function (msg) {
+  let promise;
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true}, function(err, res, json) {
@@ -73,10 +74,10 @@ bot.on(['/plbt'], function (msg) {
 
     if(price > 4) {
       bot.sendMessage(id, `The price is ${price}. Yura is a rich man.`);
-      bot.setChatTitle(id, 'ГКТИиЮ');
+      promise = bot.setChatTitle(id, 'ГКТИиЮ');
     } else {
       bot.sendMessage(id, `The price is ${price}.`);
-      bot.setChatTitle(id, 'ГКТИ');
+      promise = bot.setChatTitle(id, 'ГКТИ');
     }
   });
 
@@ -87,6 +88,7 @@ bot.on(['/plbt'], function (msg) {
 });
 
 bot.on(['/xrp'], function (msg) {
+  let promise;
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true}, function(err, res, json) {
@@ -94,15 +96,15 @@ bot.on(['/xrp'], function (msg) {
 
     if(price > 1.5) {
       bot.sendMessage(id, `The price is ${price}. To the moon!`);
-      bot.setChatTitle(id, 'КТИ');
+      promise = bot.setChatTitle(id, 'КТИ');
     } else {
       bot.sendMessage(id, `The price is ${price}.`);
-      bot.setChatTitle(id, 'ГКТИ');
+      promise = bot.setChatTitle(id, 'ГКТИ');
     }
   });
 
   return promise.catch(error => {
-      console.log('[error]', error);
+    console.log('[error]', error);
   });
   
 });
@@ -113,20 +115,19 @@ bot.on(['/price'], function (msg) {
 
   request({url: 'https://api.coinmarketcap.com/v2/listings/', json: true}, function(err, res, json) {
     const cryptos = json.data;
-    const toFind = cryptos.find(cr => cr.sympol.toLowerCase() === crypto.toLowerCase());
+    const toFind = cryptos.find(cr => cr.symbol.toLowerCase() === crypto.toLowerCase());
 
     if(toFind) {
       request({url: `https://api.coinmarketcap.com/v2/ticker/${toFind.id}/`, json: true}, function(err, res, json) {
         let price = json.data.quotes.USD.price;
         bot.sendMessage(id, `The price is ${price}.`);
       });
+    } else {
+      bot.sendMessage(id, `Crypto is not found.`);
     }
+    
   });
 
-  return promise.catch(error => {
-      console.log('[error]', error);
-  });
-  
 });
 
 // Start getting updates
