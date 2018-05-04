@@ -107,6 +107,28 @@ bot.on(['/xrp'], function (msg) {
   
 });
 
+bot.on(['/price'], function (msg) {
+  let id = msg.chat.id;
+  let crypto = msg.text.split(' ')[1] || '';
+
+  request({url: 'https://api.coinmarketcap.com/v2/listings/', json: true}, function(err, res, json) {
+    const cryptos = json.data;
+    const toFind = cryptos.find(cr => cr.sympol.toLowerCase() === crypto.toLowerCase());
+
+    if(toFind) {
+      request({url: `https://api.coinmarketcap.com/v2/ticker/${toFind.id}/`, json: true}, function(err, res, json) {
+        let price = json.data.quotes.USD.price;
+        bot.sendMessage(id, `The price is ${price}.`);
+      });
+    }
+  });
+
+  return promise.catch(error => {
+      console.log('[error]', error);
+  });
+  
+});
+
 // Start getting updates
 bot.start();
 
