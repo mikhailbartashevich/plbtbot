@@ -4,10 +4,11 @@
   "main": "index.js",
   "dependencies": {
     "request": "^2.85.0",
-    "telebot": "^1.2.6"
+    "telebot": "^1.2.6",
+    "nodemon": "^1.9.2"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
