@@ -1,3 +1,4 @@
+require('newrelic');
 const TeleBot = require('telebot');
 const request = require('request');
 const bot = new TeleBot('538233729:AAHJqMW2om913dzeTOECVxUm3Nb6AMTy7Xo');
