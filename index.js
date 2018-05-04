@@ -65,19 +65,44 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
 
 });
 
-bot.on(['/isNishchebrod'], function (msg) {
+bot.on(['/plbt'], function (msg) {
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
 
     if(price > 4) {
-      bot.sendMessage(id, `No! the price is ${price}. Yura is a rich man.`);
+      bot.sendMessage(id, `The price is ${price}. Yura is a rich man.`);
       bot.setChatTitle(id, 'ГКТИиЮ');
     } else {
-      bot.sendMessage(id, `Yup :( The price is ${price}.`);
+      bot.sendMessage(id, `The price is ${price}.`);
       bot.setChatTitle(id, 'ГКТИ');
     }
+  });
+
+  return promise.catch(error => {
+      console.log('[error]', error);
+  });
+  
+});
+
+bot.on(['/xrp'], function (msg) {
+  let id = msg.chat.id;
+
+  request({url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true}, function(err, res, json) {
+    let price = json.data.quotes.USD.price;
+
+    if(price > 1.5) {
+      bot.sendMessage(id, `The price is ${price}. To the moon!`);
+      bot.setChatTitle(id, 'КТИ');
+    } else {
+      bot.sendMessage(id, `The price is ${price}.`);
+      bot.setChatTitle(id, 'ГКТИ');
+    }
+  });
+
+  return promise.catch(error => {
+      console.log('[error]', error);
   });
   
 });
