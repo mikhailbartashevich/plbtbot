@@ -57,7 +57,7 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
 });
 
 bot.on(['/plbt'], function (msg) {
-  let promise = new Promise();
+  let promise;
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true}, function(err, res, json) {
@@ -79,7 +79,7 @@ bot.on(['/plbt'], function (msg) {
 });
 
 bot.on(['/xrp'], function (msg) {
-  let promise = new Promise();
+  let promise;
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true}, function(err, res, json) {
