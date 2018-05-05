@@ -65,10 +65,10 @@ bot.on(['/plbt'], function (msg) {
 
     if(price > 4) {
       promise = bot.sendMessage(id, `The price is ${price}. Yura is a rich man.`);
-      bot.setChatTitle(id, 'ГКТИиЮ');
+      bot.setChatTitle(id, 'ГКТИиЮ').catch(error => console.log('Error:', error));
     } else {
       promise = bot.sendMessage(id, `The price is ${price}.`);
-      bot.setChatTitle(id, 'ГКТИ');
+      bot.setChatTitle(id, 'ГКТИ').catch(error => console.log('Error:', error));
     }
   });
 
@@ -87,10 +87,10 @@ bot.on(['/xrp'], function (msg) {
 
     if(price > 1.5) {
       promise = bot.sendMessage(id, `The price is ${price}. To the moon!`);
-      bot.setChatTitle(id, 'КТИ');
+      bot.setChatTitle(id, 'КТИ').catch(error => console.log('Error:', error));
     } else {
       promise = bot.sendMessage(id, `The price is ${price}.`);
-      bot.setChatTitle(id, 'ГКТИ');
+      bot.setChatTitle(id, 'ГКТИ').catch(error => console.log('Error:', error));
     }
   });
 
