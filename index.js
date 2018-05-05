@@ -8,7 +8,7 @@ const API = 'https://thecatapi.com/api/images/get?format=src&type=';
 
 // Command keyboard
 const replyMarkup = bot.keyboard([
-    ['/kitty', '/kittygif']
+    ['/kitty', '/kittygif', '/plbt', '/xrp']
 ], {resize: true, once: false});
 
 // Log every text message
@@ -20,18 +20,8 @@ bot.on('text', function (msg) {
 bot.on(['/start', '/help'], function (msg) {
 
     return bot.sendMessage(msg.chat.id,
-        '😺 Use commands: /kitty, /kittygif and /about', {replyMarkup}
+        '😺 Use commands: /kitty, /kittygif, /plbt, /xrp and /price crypto', {replyMarkup}
     );
-
-});
-
-// On command "about"
-bot.on('/about', function (msg) {
-
-    let text = '😽 This bot is powered by TeleBot library ' +
-        'https://github.com/kosmodrey/telebot Go check the source code!';
-
-    return bot.sendMessage(msg.chat.id, text);
 
 });
 
@@ -67,18 +57,18 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
 });
 
 bot.on(['/plbt'], function (msg) {
-  let promise;
+  let promise = new Promise();
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
 
     if(price > 4) {
-      bot.sendMessage(id, `The price is ${price}. Yura is a rich man.`);
-      promise = bot.setChatTitle(id, 'ГКТИиЮ');
+      promise = bot.sendMessage(id, `The price is ${price}. Yura is a rich man.`);
+      bot.setChatTitle(id, 'ГКТИиЮ');
     } else {
-      bot.sendMessage(id, `The price is ${price}.`);
-      promise = bot.setChatTitle(id, 'ГКТИ');
+      promise = bot.sendMessage(id, `The price is ${price}.`);
+      bot.setChatTitle(id, 'ГКТИ');
     }
   });
 
@@ -89,18 +79,18 @@ bot.on(['/plbt'], function (msg) {
 });
 
 bot.on(['/xrp'], function (msg) {
-  let promise;
+  let promise = new Promise();
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
 
     if(price > 1.5) {
-      bot.sendMessage(id, `The price is ${price}. To the moon!`);
-      promise = bot.setChatTitle(id, 'КТИ');
+      promise = bot.sendMessage(id, `The price is ${price}. To the moon!`);
+      bot.setChatTitle(id, 'КТИ');
     } else {
-      bot.sendMessage(id, `The price is ${price}.`);
-      promise = bot.setChatTitle(id, 'ГКТИ');
+      promise = bot.sendMessage(id, `The price is ${price}.`);
+      bot.setChatTitle(id, 'ГКТИ');
     }
   });
 
@@ -134,9 +124,9 @@ bot.on(['/price'], function (msg) {
 // Start getting updates
 bot.start();
 
-var http = require('http');
+const http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.write('Hello World!');
+  res.write('Welcome to @PolybiusBot. It is a Telegram bot. To use it open Telegram app.');
   res.end();
 }).listen(process.env.PORT || 3000);
