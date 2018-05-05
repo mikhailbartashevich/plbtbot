@@ -8,6 +8,7 @@ const bot = new TeleBot('538233729:AAHJqMW2om913dzeTOECVxUm3Nb6AMTy7Xo');
 const API = 'https://thecatapi.com/api/images/get?format=src&type=';
 
 let interval = 0;
+let intervalTime = 0;
 
 // Command keyboard
 const replyMarkup = bot.keyboard([
@@ -97,17 +98,16 @@ bot.on(['/xrp'], function (msg) {
 
 bot.on(['/plbtInterval'], function (msg) {
   let id = msg.chat.id;
-  let time = msg.text.split(' ')[1];
+  inteervalTime = msg.text.split(' ')[1];
   clearInterval(interval);
   interval = setInterval(() => checkPlbtPrice(id), parseInt(time, 10));
-  bot.sendMessage(id, `${interval}  started.`);
+  bot.sendMessage(id, `Interval ${intervalTime} started.`);
 });
 
 bot.on(['/stopInterval'], function (msg) {
   let id = msg.chat.id;
-  let time = msg.text.split(' ')[1];
   clearInterval(interval);
-  bot.sendMessage(id, `${interval}  stopped.`);
+  bot.sendMessage(id, `Interval ${intervalTime} stopped.`);
 });
 
 bot.on(['/price'], function (msg) {
