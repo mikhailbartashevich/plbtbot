@@ -100,7 +100,7 @@ bot.on(['/plbtInterval'], function (msg) {
   let id = msg.chat.id;
   inteervalTime = msg.text.split(' ')[1];
   clearInterval(interval);
-  interval = setInterval(() => checkPlbtPrice(id), parseInt(time, 10));
+  interval = setInterval(() => checkPlbtPrice(id), parseInt(inteervalTime, 10));
   bot.sendMessage(id, `Interval ${intervalTime} started.`);
 });
 
