@@ -60,9 +60,7 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
 
 });
 
-bot.on(['/plbt'], function (msg) {
-  let id = msg.chat.id;
-
+function checkPlbtPrice(id) {
   request({url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
     let title = 'ГКТИ';
@@ -74,10 +72,14 @@ bot.on(['/plbt'], function (msg) {
     bot.sendMessage(id, message);
     bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
   });
+}
 
+bot.on(['/plbt'], function (msg) {
+  let id = msg.chat.id;
+  checkPlbtPrice(id);
 });
 
-function checkPlbtPrice(id) {
+function checkXrpPrice(id) {
   request({url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
     let title = 'ГКТИ';
@@ -93,14 +95,15 @@ function checkPlbtPrice(id) {
 
 bot.on(['/xrp'], function (msg) {
   let id = msg.chat.id;
-  checkPlbtPrice(id);
+  checkXrpPrice(id);
 });
 
 bot.on(['/plbtInterval'], function (msg) {
   let id = msg.chat.id;
-  inteervalTime = msg.text.split(' ')[1];
+  const time = msg.text.split(' ')[1] || 10000;
+  intervalTime = parseInt(time, 10);
   clearInterval(interval);
-  interval = setInterval(() => checkPlbtPrice(id), parseInt(inteervalTime, 10));
+  interval = setInterval(() => checkPlbtPrice(id), intervalTime);
   bot.sendMessage(id, `Interval ${intervalTime} started.`);
 });
 
