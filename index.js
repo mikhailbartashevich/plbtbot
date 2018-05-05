@@ -57,47 +57,37 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
 });
 
 bot.on(['/plbt'], function (msg) {
-  let promise;
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
-
-    if(price > 4) {
-      promise = bot.sendMessage(id, `The price is ${price}. Yura is a rich man.`);
-      bot.setChatTitle(id, 'ГКТИиЮ').catch(error => console.log('Error:', error));
-    } else {
-      promise = bot.sendMessage(id, `The price is ${price}.`);
-      bot.setChatTitle(id, 'ГКТИ').catch(error => console.log('Error:', error));
+    let title = 'ГКТИ';
+    let message = `The price is ${price}.`;
+    if (price > 4) {
+      message += ` Yura is a rich man.`;
+      title = 'ГКТИиЮ';
     }
+    promise = bot.sendMessage(id, message);
+    bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
   });
 
-  return promise.catch(error => {
-      console.log('[error]', error);
-  });
-  
 });
 
 bot.on(['/xrp'], function (msg) {
-  let promise;
   let id = msg.chat.id;
 
   request({url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
-
-    if(price > 1.5) {
-      promise = bot.sendMessage(id, `The price is ${price}. To the moon!`);
-      bot.setChatTitle(id, 'КТИ').catch(error => console.log('Error:', error));
-    } else {
-      promise = bot.sendMessage(id, `The price is ${price}.`);
-      bot.setChatTitle(id, 'ГКТИ').catch(error => console.log('Error:', error));
+    let title = 'ГКТИ';
+    let message = `The price is ${price}.`;
+    if (price > 1.5) {
+      message += ` To the moon!`;
+      title = 'КТИ';
     }
+    bot.sendMessage(id, message);
+    bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
   });
 
-  return promise.catch(error => {
-    console.log('[error]', error);
-  });
-  
 });
 
 bot.on(['/price'], function (msg) {
