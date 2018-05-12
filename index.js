@@ -72,7 +72,7 @@ function checkPlbtPrice(id) {
     bot.sendMessage(id, message);
     if (price < 3.9) {
       bot.sendMessage(id, `😿 Here is a kitty for Yura.`);
-      showKitty(id, 'kitty').catch(error => console.log('[error]', error));
+      showKitty(id, '/kitty').catch(error => console.log('[error]', error));
     }
     bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
   });
@@ -95,7 +95,7 @@ function checkXrpPrice(id) {
     bot.sendMessage(id, message);
     if (price < 0.9) {
       bot.sendMessage(id, `😿 Here is a kitty for Gore Traders.`);
-      showKitty(id, 'kitty').catch(error => console.log('[error]', error));
+      showKitty(id, '/kitty').catch(error => console.log('[error]', error));
     }
     bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
   });
@@ -116,7 +116,7 @@ function checkBtcPrice(id) {
     bot.sendMessage(id, message);
     if (price < 9000) {
       bot.sendMessage(id, `MtGox, Seriously ?! 😿 Here is a kitty for the team.`);
-      showKitty(id, 'kitty').catch(error => console.log('[error]', error));
+      showKitty(id, '/kitty').catch(error => console.log('[error]', error));
     }
   });
 }
