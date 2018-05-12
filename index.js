@@ -118,6 +118,12 @@ function checkBtcPrice(id) {
       bot.sendMessage(id, `MtGox, Seriously ?! 😿 Here is a kitty for the team.`);
       showKitty(id, '/kitty').catch(error => console.log('[error]', error));
     }
+
+    let photo = 'https://cdni.rt.com/files/news/1f/9e/a0/00/50proton-m-rocket-takeoff-crash.jpg'
+    if(price > 8000) {
+      photo = 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg';
+    }
+    bot.setChatPhoto(id, 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg').catch(error => console.log('[error]', error));
   });
 }
 
@@ -125,6 +131,7 @@ bot.on(['/btc'], function (msg) {
   let id = msg.chat.id;
   checkBtcPrice(id);
 });
+
 
 bot.on(['/plbtInterval'], function (msg) {
   let id = msg.chat.id;
