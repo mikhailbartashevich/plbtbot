@@ -4,15 +4,12 @@ const request = require('request');
 const http = require('http');
 const bot = new TeleBot('538233729:AAHJqMW2om913dzeTOECVxUm3Nb6AMTy7Xo');
 
-// Great API for this bot
-const API = 'https://thecatapi.com/api/images/get?format=src&type=';
-
 let interval = 0;
 let intervalTime = 0;
 
 // Command keyboard
 const replyMarkup = bot.keyboard([
-  ['/kitty', '/kittygif', '/plbt', '/xrp', '/stopInterval']
+  ['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/stopInterval']
 ], {resize: true, once: false});
 
 // Log every text message
@@ -24,18 +21,15 @@ bot.on('text', function (msg) {
 bot.on(['/start', '/help'], function (msg) {
 
   return bot.sendMessage(msg.chat.id,
-    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /plbtInterval time, /stopInterval and /price crypto', {replyMarkup}
+    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /plbtInterval time, /stopInterval and /price crypto', {replyMarkup}
   );
 
 });
 
-// On command "kitty" or "kittygif"
-bot.on(['/kitty', '/kittygif'], function (msg) {
+function showKitty(id, cmd) {
+  const API = 'https://thecatapi.com/api/images/get?format=src&type=';
 
   let promise;
-  let id = msg.chat.id;
-  let cmd = msg.text.split(' ')[0];
-
   // Photo or gif?
   if (cmd == '/kitty') {
     promise = bot.sendPhoto(id, API + 'jpg', {
@@ -49,10 +43,16 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
     });
   }
 
-    // Send "uploading photo" action
+  // Send "uploading photo" action
   bot.sendAction(id, 'upload_photo');
+  return promise;
+}
 
-  return promise.catch(error => {
+// On command "kitty" or "kittygif"
+bot.on(['/kitty', '/kittygif'], function (msg) {
+  let id = msg.chat.id;
+  let cmd = msg.text.split(' ')[0];
+  return showKitty(id, cmd).catch(error => {
     console.log('[error]', error);
     // Send an error
     bot.sendMessage(id, `😿 An error ${ error } occurred, try again.`);
@@ -70,6 +70,10 @@ function checkPlbtPrice(id) {
       title = 'ГКТИиЮ';
     }
     bot.sendMessage(id, message);
+    if (price < 3.9) {
+      bot.sendMessage(id, `😿 Here is a kitty for Yura.`);
+      showKitty(id, 'kitty').catch(error => console.log('[error]', error));
+    }
     bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
   });
 }
@@ -89,6 +93,10 @@ function checkXrpPrice(id) {
       title = 'КТИ';
     }
     bot.sendMessage(id, message);
+    if (price < 0.9) {
+      bot.sendMessage(id, `😿 Here is a kitty for Gore Traders.`);
+      showKitty(id, 'kitty').catch(error => console.log('[error]', error));
+    }
     bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
   });
 }
@@ -96,6 +104,26 @@ function checkXrpPrice(id) {
 bot.on(['/xrp'], function (msg) {
   let id = msg.chat.id;
   checkXrpPrice(id);
+});
+
+function checkBtcPrice(id) {
+  request({url: 'https://api.coinmarketcap.com/v2/ticker/1/', json: true}, function(err, res, json) {
+    let price = json.data.quotes.USD.price;
+    let message = `The price is ${price}.`;
+    if (price > 10000) {
+      message += ` To the moon!`;
+    }
+    bot.sendMessage(id, message);
+    if (price < 9000) {
+      bot.sendMessage(id, `MtGox, Seriously ?! 😿 Here is a kitty for the team.`);
+      showKitty(id, 'kitty').catch(error => console.log('[error]', error));
+    }
+  });
+}
+
+bot.on(['/btc'], function (msg) {
+  let id = msg.chat.id;
+  checkBtcPrice(id);
 });
 
 bot.on(['/plbtInterval'], function (msg) {
