@@ -123,7 +123,7 @@ function checkBtcPrice(id) {
     if(price > 8000) {
       photo = 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg';
     }
-    bot.setChatPhoto(id, 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg').catch(error => console.log('[error]', error));
+    bot.setChatPhoto(id, photo, { serverDownload: true }).catch(error => console.log('[error]', error));
   });
 }
 
