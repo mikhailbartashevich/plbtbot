@@ -119,7 +119,7 @@ function checkBtcPrice(id) {
       showKitty(id, '/kitty').catch(error => console.log('[error]', error));
     }
 
-    let photo = 'https://cdni.rt.com/files/news/1f/9e/a0/00/50proton-m-rocket-takeoff-crash.jpg'
+    let photo = 'https://icdn.lenta.ru/images/2015/05/18/21/20150518211229973/detail_186da508c657a2b0378a28711cc15738.jpg';
     if(price > 8000) {
       photo = 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg';
     }
