@@ -9,7 +9,7 @@ let intervalTime = 0;
 
 // Command keyboard
 const replyMarkup = bot.keyboard([
-  ['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/stopInterval']
+  ['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/fiat']
 ], {resize: true, once: false});
 
 // Log every text message
@@ -21,7 +21,7 @@ bot.on('text', function (msg) {
 bot.on(['/start', '/help'], function (msg) {
 
   return bot.sendMessage(msg.chat.id,
-    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /plbtInterval time, /stopInterval and /price crypto', {replyMarkup}
+    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /fiat usd_pln pair, and /price crypto', {replyMarkup}
   );
 
 });
@@ -135,12 +135,13 @@ bot.on(['/btc'], function (msg) {
 function checkFiatPrice(id, pair) {
   request({url: `http://free.currencyconverterapi.com/api/v5/convert?q=${pair}&compact=y`, json: true}, 
     function(err, res, json) {
-      const keys = Object.keys(json.data);
+      const keys = Object.keys(json);
       const key = keys.length ? keys[0]: '';
+      let message = '';
 
       if (key) {
-        const price = json.data[key].val;
-        let message = `The price is ${price}.`;
+        const price = json[key].val;
+        message = `The price is ${price}.`;
 
         if(pair.toLowerCase() === 'usd_pln') {
           if (price > 3.75) {
@@ -151,7 +152,7 @@ function checkFiatPrice(id, pair) {
           }
         }
       } else {
-        let message = `No such fiat pair.`;
+        message = `No such fiat pair.`;
       }
 
       bot.sendMessage(id, message);
