@@ -106,6 +106,22 @@ bot.on(['/xrp'], function (msg) {
   checkXrpPrice(id);
 });
 
+bot.on(['/remont'], function (msg) {
+  let id = msg.chat.id;
+  checkRemontPrice(id);
+});
+
+function checkRemontPrice(id) {
+  const renovationURL = `https://sheets.googleapis.com/v4/spreadsheets/
+  1ZXASrDKPS2oF-UkrydC2N6khMuyJnanRctiEqu1wvEw/values/H16?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
+
+  request({url: renovationURL, json: true}, function(err, res, json) {
+    const total = json.data.values[0][0];
+    bot.sendMessage(id, `Yura the Rich spent already for renovation: ${total}`);
+  });
+
+}
+
 function checkBtcPrice(id) {
   request({url: 'https://api.coinmarketcap.com/v2/ticker/1/', json: true}, function(err, res, json) {
     let price = json.data.quotes.USD.price;
