@@ -12,11 +12,6 @@ const replyMarkup = bot.keyboard([
   ['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/fiat']
 ], {resize: true, once: false});
 
-// Log every text message
-bot.on('text', function (msg) {
-  console.log(`[text] ${ msg.chat.id } ${ msg.text }`);
-});
-
 // On command "start" or "help"
 bot.on(['/start', '/help'], function (msg) {
 
@@ -216,13 +211,11 @@ bot.on(['/price'], function (msg) {
 
 });
 
-bot.on(['/test'], function (msg) {
-  let id = msg.chat.id();
-});
-
-bot.on(['/*'], function (msg) {
+bot.on(['text'], function (msg) {
   let id = msg.chat.id;
-  rememberTweet(id, msg.text, msg.from);
+  if (msg.text.indexOf('запомните этот твит')) {
+    rememberTweet(id, msg.text, msg.from);
+  }
 });
 
 function rememberTweet(id, text, from) {
