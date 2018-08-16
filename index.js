@@ -213,13 +213,13 @@ bot.on(['/price'], function (msg) {
 
 bot.on(['text'], function (msg) {
   let id = msg.chat.id;
-  if (msg.text.indexOf('запомните этот твит')) {
+  if (msg.text.indexOf('запомните этот твит') > -1) {
     rememberTweet(id, msg.text, msg.from);
   }
 });
 
 function rememberTweet(id, text, from) {
-  const tweetURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/A1:append?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
+  const tweetURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/A1:append?valueInputOption=RAW&key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
   request.post(tweetURL).form({values: [[text + ' ' + from.first_name]]});
   bot.sendMessage(id, `Remembered`);
 }
