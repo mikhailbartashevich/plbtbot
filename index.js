@@ -216,6 +216,21 @@ bot.on(['/price'], function (msg) {
 
 });
 
+bot.on(['/test'], function (msg) {
+  let id = msg.chat.id();
+});
+
+bot.on(['/*'], function (msg) {
+  let id = msg.chat.id;
+  rememberTweet(id, msg.text, msg.from);
+});
+
+function rememberTweet(id, text, from) {
+  const tweetURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/A1:append?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
+  request.post(tweetURL).form({values: [[text + ' ' + from.first_name]]});
+  bot.sendMessage(id, `Remembered`);
+}
+
 // Start getting updates
 bot.start();
 
