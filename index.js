@@ -10,13 +10,13 @@ let intervalTime = 0;
 // Command keyboard
 const replyMarkup = bot.keyboard([
   ['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/fiat']
-], {resize: true, once: false});
+], { resize: true, once: false });
 
 // On command "start" or "help"
 bot.on(['/start', '/help'], function (msg) {
 
   return bot.sendMessage(msg.chat.id,
-    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /fiat usd_pln pair, and /price crypto', {replyMarkup}
+    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /fiat usd_pln pair, and /price crypto', { replyMarkup }
   );
 
 });
@@ -50,13 +50,13 @@ bot.on(['/kitty', '/kittygif'], function (msg) {
   return showKitty(id, cmd).catch(error => {
     console.log('[error]', error);
     // Send an error
-    bot.sendMessage(id, `😿 An error ${ error } occurred, try again.`);
+    bot.sendMessage(id, `😿 An error ${error} occurred, try again.`);
   });
 
 });
 
 function checkPlbtPrice(id) {
-  request({url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true}, function(err, res, json) {
+  request({ url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true }, function (err, res, json) {
     let price = json.data.quotes.USD.price;
     let title = 'ГКТИ';
     let message = `The price is ${price}.`;
@@ -79,7 +79,7 @@ bot.on(['/plbt'], function (msg) {
 });
 
 function checkXrpPrice(id) {
-  request({url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true}, function(err, res, json) {
+  request({ url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true }, function (err, res, json) {
     let price = json.data.quotes.USD.price;
     let title = 'ГКТИ';
     let message = `The price is ${price}.`;
@@ -109,7 +109,7 @@ bot.on(['/remont'], function (msg) {
 function checkRemontPrice(id) {
   const renovationURL = `https://sheets.googleapis.com/v4/spreadsheets/1ZXASrDKPS2oF-UkrydC2N6khMuyJnanRctiEqu1wvEw/values/H16?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
 
-  request({url: renovationURL, json: true}, function(err, res, json) {
+  request({ url: renovationURL, json: true }, function (err, res, json) {
     const total = json.values[0][0];
     bot.sendMessage(id, `Yura the Rich spent already for renovation: ${total}`);
   });
@@ -117,7 +117,7 @@ function checkRemontPrice(id) {
 }
 
 function checkBtcPrice(id) {
-  request({url: 'https://api.coinmarketcap.com/v2/ticker/1/', json: true}, function(err, res, json) {
+  request({ url: 'https://api.coinmarketcap.com/v2/ticker/1/', json: true }, function (err, res, json) {
     let price = json.data.quotes.USD.price;
     let message = `The price is ${price}.`;
     if (price > 10000) {
@@ -130,7 +130,7 @@ function checkBtcPrice(id) {
     }
 
     let photo = 'https://i.obozrevatel.com/2014/12/17/281603.jpg?size=600x400';
-    if(price > 8000) {
+    if (price > 8000) {
       photo = 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg';
     }
     bot.setChatPhoto(id, photo, { serverDownload: true }).catch(error => console.log('[error]', error));
@@ -143,17 +143,17 @@ bot.on(['/btc'], function (msg) {
 });
 
 function checkFiatPrice(id, pair) {
-  request({url: `http://free.currencyconverterapi.com/api/v5/convert?q=${pair}&compact=y`, json: true}, 
-    function(err, res, json) {
+  request({ url: `http://free.currencyconverterapi.com/api/v5/convert?q=${pair}&compact=y`, json: true },
+    function (err, res, json) {
       const keys = Object.keys(json);
-      const key = keys.length ? keys[0]: '';
+      const key = keys.length ? keys[0] : '';
       let message = '';
 
       if (key) {
         const price = json[key].val;
         message = `The price is ${price}.`;
 
-        if(pair.toLowerCase() === 'usd_pln') {
+        if (pair.toLowerCase() === 'usd_pln') {
           if (price > 3.75) {
             message += ` You are too rich for the kitty!`;
           } else {
@@ -166,7 +166,7 @@ function checkFiatPrice(id, pair) {
       }
 
       bot.sendMessage(id, message);
-  });
+    });
 }
 
 bot.on(['/fiat'], function (msg) {
@@ -194,19 +194,19 @@ bot.on(['/price'], function (msg) {
   let id = msg.chat.id;
   let crypto = msg.text.split(' ')[1] || '';
 
-  request({url: 'https://api.coinmarketcap.com/v2/listings/', json: true}, function(err, res, json) {
+  request({ url: 'https://api.coinmarketcap.com/v2/listings/', json: true }, function (err, res, json) {
     const cryptos = json.data;
     const toFind = cryptos.find(cr => cr.symbol.toLowerCase() === crypto.toLowerCase());
 
-    if(toFind) {
-      request({url: `https://api.coinmarketcap.com/v2/ticker/${toFind.id}/`, json: true}, function(err, res, json) {
+    if (toFind) {
+      request({ url: `https://api.coinmarketcap.com/v2/ticker/${toFind.id}/`, json: true }, function (err, res, json) {
         let price = json.data.quotes.USD.price;
         bot.sendMessage(id, `The price is ${price}.`);
       });
     } else {
       bot.sendMessage(id, `Crypto is not found.`);
     }
-    
+
   });
 
 });
@@ -220,7 +220,12 @@ bot.on(['text'], function (msg) {
 
 function rememberTweet(id, text, from) {
   const tweetURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/A1:append?valueInputOption=RAW&key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
-  request.post(tweetURL).form(JSON.stringify({values: [[text + ' ' + from.first_name]]}));
+
+  request.post({ url: tweetURL, form: { values: [[text + ' ' + from.first_name]] } }, 
+  function (err, httpResponse, body) {
+    console.log(JSON.stringify(err));
+    console.log(JSON.stringify(body));
+  })
   bot.sendMessage(id, `Remembered`);
 }
 
@@ -228,7 +233,7 @@ function rememberTweet(id, text, from) {
 bot.start();
 
 http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.write('Welcome to @PolybiusBot. It is a Telegram bot. To use it open Telegram app.');
   res.end();
 }).listen(process.env.PORT || 3000);
