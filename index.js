@@ -328,6 +328,6 @@ function appendTweet(auth, msg) {
       console.error(err);
       return;
     }
-    bot.sendMessage(msg.chat.id, `Remembered`);
+    bot.sendMessage(msg.chat.id, `Remembered. https://docs.google.com/spreadsheets/d/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw`);
   });
 }
