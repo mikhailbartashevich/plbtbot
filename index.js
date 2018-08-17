@@ -226,16 +226,16 @@ bot.on(['/price'], function (msg) {
 bot.on(['text'], function (msg) {
   let id = msg.chat.id;
   if (msg.text.indexOf('запомните этот твит') > -1) {
-    rememberTweet(id, msg.text, msg.from);
+    rememberTweet(id, msg);
   }
 });
 
-function rememberTweet(id, text, from) {
+function rememberTweet(id, msg) {
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), appendTweet, text);
+    authorize(JSON.parse(content), appendTweet, msg);
   });
   
 }
@@ -310,14 +310,14 @@ function getNewToken(oAuth2Client, callback) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function appendTweet(auth, text) {
+function appendTweet(auth, data) {
   var request = {
     spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
     range: 'A1',
     valueInputOption: 'RAW',  // TODO: Update placeholder value.
     resource: {
       values: [[
-        text
+        data.from.first_name + ': ' + data.text
       ]]
     },
     auth,
@@ -328,6 +328,6 @@ function appendTweet(auth, text) {
       console.error(err);
       return;
     }
-    bot.sendMessage(id, `Remembered`);
+    bot.sendMessage(data.id, `Remembered`);
   });
 }
