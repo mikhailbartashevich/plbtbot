@@ -317,7 +317,7 @@ function appendTweet(auth, msg) {
     valueInputOption: 'RAW',  // TODO: Update placeholder value.
     resource: {
       values: [[
-        msg.from.first_name + ': ' + msg.text
+        new Date().toLocaleDateString() + ' ' + msg.from.first_name + ': ' + msg.text
       ]]
     },
     auth,
