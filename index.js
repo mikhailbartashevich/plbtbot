@@ -310,24 +310,24 @@ function getNewToken(oAuth2Client, callback) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function appendTweet(auth, data) {
+function appendTweet(auth, msg) {
   var request = {
     spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
     range: 'A1',
     valueInputOption: 'RAW',  // TODO: Update placeholder value.
     resource: {
       values: [[
-        data.from.first_name + ': ' + data.text
+        msg.from.first_name + ': ' + msg.text
       ]]
     },
     auth,
   };
   const sheets = google.sheets({version: 'v4', auth});
-  sheets.spreadsheets.values.append(request, function (err, response) {
+  sheets.spreadsheets.values.append(request, function (err) {
     if (err) {
       console.error(err);
       return;
     }
-    bot.sendMessage(data.id, `Remembered`);
+    bot.sendMessage(msg.chat.id, `Remembered`);
   });
 }
