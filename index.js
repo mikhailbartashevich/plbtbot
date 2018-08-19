@@ -327,6 +327,7 @@ function appendTweet(auth, msg, range = 'A1') {
   const request = {
     spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
     range,
+    insertDataOption: 'INSERT_ROWS',
     valueInputOption: 'RAW',  // TODO: Update placeholder value.
     resource: {
       values: [[
@@ -371,7 +372,7 @@ function processKartoshkaJoke(auth, msg) {
       serverDownload: true
     });
     bot.sendMessage(id, `Что это, еще одна бульба-шутка? Нашучено: ${total + 1}`);
-    appendTweet(auth, msg, 'B3');
+    appendTweet(auth, msg, 'B:B');
 
     sheetsRequest.resource = {
       values: [[
