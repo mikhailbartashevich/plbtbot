@@ -228,7 +228,20 @@ bot.on(['text'], function (msg) {
   if (msg.text.indexOf('запомните этот твит') > -1) {
     rememberTweet(id, msg);
   }
+  if (msg.text.indexOf('картош') > -1 || msg.text.indexOf('картоф') > -1 || msg.text.indexOf('бульб') > -1) {
+    kartoshkaJoke(id, msg);
+  }
 });
+
+function kartoshkaJoke(id, msg) {
+  // Load client secrets from a local file.
+  fs.readFile('credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    // Authorize a client with credentials, then call the Google Sheets API.
+    authorize(JSON.parse(content), processKartoshkaJoke, msg);
+  });
+  
+}
 
 function rememberTweet(id, msg) {
   // Load client secrets from a local file.
@@ -310,10 +323,10 @@ function getNewToken(oAuth2Client, callback) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function appendTweet(auth, msg) {
-  var request = {
+function appendTweet(auth, msg, range = 'A1') {
+  const request = {
     spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
-    range: 'A1',
+    range,
     valueInputOption: 'RAW',  // TODO: Update placeholder value.
     resource: {
       values: [[
@@ -323,11 +336,50 @@ function appendTweet(auth, msg) {
     auth,
   };
   const sheets = google.sheets({version: 'v4', auth});
-  sheets.spreadsheets.values.append(request, function (err) {
+  sheets.spreadsheets.values.append(request, (err) => {
     if (err) {
       console.error(err);
       return;
     }
     bot.sendMessage(msg.chat.id, `Remembered. https://docs.google.com/spreadsheets/d/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw`);
   });
+}
+
+function processKartoshkaJoke(auth, msg) {
+  const sheetsRequest = {
+    spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
+    range: 'B2',
+    valueInputOption: 'RAW',  // TODO: Update placeholder value.
+    resource: {
+      values: [[
+        1
+      ]]
+    },
+    auth,
+  };
+  const sheets = google.sheets({version: 'v4', auth});
+
+  const kartoskaJokesURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/B2?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
+
+  request({ url: kartoskaJokesURL, json: true }, (err, res, json) => {
+    const total = +json.values[0][0];
+    const photo = 'http://www.forumdaily.com/wp-content/uploads/2015/08/aleksandr-lukashenko-s-synom-dobyvaet-kartoshku_rect_ffaaec783c367451f74a5ba4605cbe90.jpeg';
+    bot.setChatPhoto(id, photo, { serverDownload: true }).catch(error => console.log('[error]', error));
+    bot.sendMessage(id, `Что это, еще одна бульба-шутка? Нашучено: ${total + 1}`);
+    appendTweet(auth, msg, 'B2');
+
+    sheetsRequest.resource = {
+      values: [[
+        total + 1
+      ]]
+    };
+
+    sheets.spreadsheets.values.update(sheetsRequest, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
+  });
+
 }
