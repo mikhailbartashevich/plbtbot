@@ -370,7 +370,7 @@ function processKartoshkaJoke(auth, msg) {
       serverDownload: true
     });
     bot.sendMessage(id, `Что это, еще одна бульба-шутка? Нашучено: ${total + 1}`);
-    appendTweet(auth, msg, 'B2');
+    appendTweet(auth, msg, 'B3');
 
     sheetsRequest.resource = {
       values: [[
