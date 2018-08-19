@@ -346,6 +346,7 @@ function appendTweet(auth, msg, range = 'A1') {
 }
 
 function processKartoshkaJoke(auth, msg) {
+  const id = msg.chat.id;
   const sheetsRequest = {
     spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
     range: 'B2',
@@ -364,7 +365,10 @@ function processKartoshkaJoke(auth, msg) {
   request({ url: kartoskaJokesURL, json: true }, (err, res, json) => {
     const total = +json.values[0][0];
     const photo = 'http://www.forumdaily.com/wp-content/uploads/2015/08/aleksandr-lukashenko-s-synom-dobyvaet-kartoshku_rect_ffaaec783c367451f74a5ba4605cbe90.jpeg';
-    bot.setChatPhoto(id, photo, { serverDownload: true }).catch(error => console.log('[error]', error));
+    bot.sendPhoto(id, photo, {
+      fileName: 'batska.jpg',
+      serverDownload: true
+    });
     bot.sendMessage(id, `Что это, еще одна бульба-шутка? Нашучено: ${total + 1}`);
     appendTweet(auth, msg, 'B2');
 
