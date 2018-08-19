@@ -324,7 +324,6 @@ function getNewToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
 function appendTweet(auth, msg, range = 'A1') {
-  console.log('range', range);
   const request = {
     spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
     range,
@@ -336,6 +335,7 @@ function appendTweet(auth, msg, range = 'A1') {
     },
     auth,
   };
+  console.log('range', JSON.stringify(request));
   const sheets = google.sheets({version: 'v4', auth});
   sheets.spreadsheets.values.append(request, (err) => {
     if (err) {
