@@ -225,7 +225,7 @@ bot.on(['/price'], function (msg) {
 
 bot.on(['text'], function (msg) {
   let id = msg.chat.id;
-  if (msg.text.indexOf('запомните этот твит') > -1) {
+  if (msg.text.toLowerCase().indexOf('запомните этот твит') > -1) {
     rememberTweet(id, msg);
   }
   if (msg.text.indexOf('картош') > -1 || msg.text.indexOf('картоф') > -1 || msg.text.indexOf('бульб') > -1 || msg.text.indexOf('картох') > -1 ) {
