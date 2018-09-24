@@ -233,7 +233,7 @@ bot.on(['text'], function (msg) {
     kartoshkaJoke(id, msg);
   }
 
-  if (text.indexOf('ебучие джуны') > -1 ) {
+  if (text.indexOf('ебучие джуны') > -1 || text.indexOf('ебучий джун') > -1 ) {
     eJunior(id, msg);
   }
 });
@@ -391,7 +391,7 @@ function processMessage(auth, msg, countRange, range, photo, callbackMessage = '
   };
   const sheets = google.sheets({version: 'v4', auth});
 
-  const kartoskaJokesURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/B2?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
+  const kartoskaJokesURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/${countRange}?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
 
   request({ url: kartoskaJokesURL, json: true }, (err, res, json) => {
     const total = +json.values[0][0];
