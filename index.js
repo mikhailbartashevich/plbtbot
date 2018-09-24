@@ -224,14 +224,29 @@ bot.on(['/price'], function (msg) {
 });
 
 bot.on(['text'], function (msg) {
-  let id = msg.chat.id;
-  if (msg.text.toLowerCase().indexOf('запомните этот твит') > -1) {
+  const id = msg.chat.id;
+  const text = msg.text.toLowerCase();
+  if (text.indexOf('запомните этот твит') > -1) {
     rememberTweet(id, msg);
   }
-  if (msg.text.indexOf('картош') > -1 || msg.text.indexOf('картоф') > -1 || msg.text.indexOf('бульб') > -1 || msg.text.indexOf('картох') > -1 ) {
+  if (text.indexOf('картош') > -1 || text.indexOf('картоф') > -1 || text.indexOf('бульб') > -1 || text.indexOf('картох') > -1 ) {
     kartoshkaJoke(id, msg);
   }
+
+  if (text.indexOf('ебучие джуны') > -1 ) {
+    eJunior(id, msg);
+  }
 });
+
+function eJunior(id, msg) {
+  // Load client secrets from a local file.
+  fs.readFile('credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    // Authorize a client with credentials, then call the Google Sheets API.
+    authorize(JSON.parse(content), processEJunior, msg);
+  });
+  
+}
 
 function kartoshkaJoke(id, msg) {
   // Load client secrets from a local file.
@@ -347,11 +362,25 @@ function appendTweet(auth, msg, range = 'A1') {
   });
 }
 
+function processEJunior(auth, msg) {
+  const photo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Paris_Tuileries_Garden_Facepalm_statue.jpg/300px-Paris_Tuileries_Garden_Facepalm_statue.jpg';
+  const callbackMessage = 'Опять ебучий джун?';
+  const range = 'C:C';
+  processMessage(auth, msg, 'C2', range, photo, callbackMessage)
+}
+
 function processKartoshkaJoke(auth, msg) {
+  const photo = 'http://www.forumdaily.com/wp-content/uploads/2015/08/aleksandr-lukashenko-s-synom-dobyvaet-kartoshku_rect_ffaaec783c367451f74a5ba4605cbe90.jpeg';
+  const callbackMessage = 'Что это, еще одна бульба-шутка?';
+  const range = 'B:B';
+  processMessage(auth, msg, 'B2', range, photo, callbackMessage)
+}
+
+function processMessage(auth, msg, countRange, range, photo, callbackMessage = '') {
   const id = msg.chat.id;
   const sheetsRequest = {
     spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
-    range: 'B2',
+    range: countRange,
     valueInputOption: 'RAW',  // TODO: Update placeholder value.
     resource: {
       values: [[
@@ -366,13 +395,13 @@ function processKartoshkaJoke(auth, msg) {
 
   request({ url: kartoskaJokesURL, json: true }, (err, res, json) => {
     const total = +json.values[0][0];
-    const photo = 'http://www.forumdaily.com/wp-content/uploads/2015/08/aleksandr-lukashenko-s-synom-dobyvaet-kartoshku_rect_ffaaec783c367451f74a5ba4605cbe90.jpeg';
+    
     bot.sendPhoto(id, photo, {
-      fileName: 'batska.jpg',
+      fileName: 'image.jpg',
       serverDownload: true
     });
-    bot.sendMessage(id, `Что это, еще одна бульба-шутка? Нашучено: ${total + 1}`);
-    appendTweet(auth, msg, 'B:B');
+    bot.sendMessage(id, `${callbackMessage} Нашучено: ${total + 1}`);
+    appendTweet(auth, msg, range);
 
     sheetsRequest.resource = {
       values: [[
