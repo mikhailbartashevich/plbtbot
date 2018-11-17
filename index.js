@@ -259,7 +259,8 @@ function splitwise(amount) {
     group_id: '5626964',
     currency_code: 'PLN',
     cost: amount,
-    payment: false
+    payment: true,
+    description: 'CryptoKot'
   });
 }
 
