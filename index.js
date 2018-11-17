@@ -242,12 +242,13 @@ bot.on(['/split'], function (msg) {
   const cost = Number(msg.text.split(' ')[1]) || 0;
   const description = msg.text.split(' ')[2] || 'CryptoKotSplit';
   let splitUsers = [];
-  console.log('message!!!!!' + msg.from);
-  if (msg.from == 'pstrashn' || msg.from == 'mbartash') {
+  console.log('message!!!!!' + msg.from.id);
+  if (msg.from.id === 'pstrashn' || msg.from.id === 'mbartash') {
     const users = {
       m: { user_id: '6181181', owed_share: cost / 2 },
       p: { user_id: '6181165', owed_share: cost / 2 }
     };
+    const user = msg.from.id === 'mbartash' ? 'm' : 'p';
     users[user].paid_share = cost;
     splitUsers = [m, p];
   }
@@ -259,11 +260,12 @@ bot.on(['/debt'], function (msg) {
   const description = msg.text.split(' ')[2] || 'CryptoKotDebt';
 
   let splitUsers = [];
-  if (msg.from == 'pstrashn' || msg.from == 'mbartash') {
+  if (msg.from.id === 'pstrashn' || msg.from.id === 'mbartash') {
     const users = {
       m: { user_id: '6181181', owed_share: cost },
       p: { user_id: '6181165', owed_share: cost }
     };
+    const user = msg.from.id === 'mbartash' ? 'm' : 'p';
     users[user].paid_share = cost;
     delete users[user].owed_share;
     splitUsers = [m, p];
