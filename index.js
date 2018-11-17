@@ -242,7 +242,6 @@ bot.on(['/split'], function (msg) {
   const cost = Number(msg.text.split(' ')[1]) || 0;
   const description = msg.text.split(' ')[2] || 'SplitKot';
   let splitUsers = [];
-  console.log('message!!!!!' + msg.from.id);
   if (msg.from.id === '281548620' || msg.from.id === '437814936') {
     const users = {
       m: { user_id: '6181181', owed_share: cost / 2 },
@@ -250,7 +249,7 @@ bot.on(['/split'], function (msg) {
     };
     const user = msg.from.id === '437814936' ? 'm' : 'p';
     users[user].paid_share = cost;
-    splitUsers = [m, p];
+    splitUsers = [users.m, users.p];
   }
   splitwiseCreate(splitUsers, cost, description);
 });
@@ -268,7 +267,7 @@ bot.on(['/debt'], function (msg) {
     const user = msg.from.id === '437814936' ? 'm' : 'p';
     users[user].paid_share = cost;
     delete users[user].owed_share;
-    splitUsers = [m, p];
+    splitUsers = [users.m, users.p];
   }
   splitwiseCreate(splitUsers, cost, description);
 });
