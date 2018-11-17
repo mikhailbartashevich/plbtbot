@@ -252,10 +252,12 @@ const splitwiseAPI = Splitwise({
 
 function splitwise(amount) {
   splitwiseAPI.createExpense({
-    users: [
-      // { user_id: '6181181' }, //m
-      { user_id: '6181165' } //p
-    ],
+    // users: [
+    //   // { user_id: '6181181' }, //m
+    //   { user_id: '6181165' } //p
+    // ],
+    users__0__user_id: '6181181',
+    users__1__user_id: '6181165',
     group_id: '5626964',
     currency_code: 'PLN',
     cost: amount,
