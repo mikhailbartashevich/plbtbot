@@ -251,6 +251,7 @@ bot.on(['/split'], function (msg) {
     users[user].paid_share = cost;
     splitUsers = [users.m, users.p];
   }
+  console.log(splitUsers);
   splitwiseCreate(splitUsers, cost, description);
 });
 
