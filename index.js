@@ -242,7 +242,7 @@ bot.on(['/split'], function (msg) {
   const cost = Number(msg.text.split(' ')[1]) || 0;
   const description = msg.text.split(' ')[2] || 'CryptoKotSplit';
   let splitUsers = [];
-  console.log(msg.from);
+  console.log('message!!!!!' + msg.from);
   if (msg.from == 'pstrashn' || msg.from == 'mbartash') {
     const users = {
       m: { user_id: '6181181', owed_share: cost / 2 },
