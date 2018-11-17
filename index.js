@@ -252,16 +252,14 @@ const splitwiseAPI = Splitwise({
 
 function splitwise(amount) {
   splitwiseAPI.createExpense({
-    // users: [
-    //   // { user_id: '6181181' }, //m
-    //   { user_id: '6181165' } //p
-    // ],
-    users__0__user_id: '6181165',
-    users__1__user_id: '6181181',
+    users: [
+      { user_id: '6181181' }, //m
+      { user_id: '6181165' } //p
+    ],
     group_id: '5626964',
     currency_code: 'PLN',
     cost: amount,
-    payment: true,
+    payment: false,
     creation_method: 'split',
     description: 'CryptoKot'
   });
