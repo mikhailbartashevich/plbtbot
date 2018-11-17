@@ -252,7 +252,7 @@ bot.on(['/split'], function (msg) {
     splitUsers = [users.m, users.p];
   }
   console.log(splitUsers);
-  splitwiseCreate(splitUsers, cost, description);
+  splitwiseCreate(msg, splitUsers, cost, description);
 });
 
 bot.on(['/debt'], function (msg) {
@@ -270,7 +270,7 @@ bot.on(['/debt'], function (msg) {
     delete users[user].owed_share;
     splitUsers = [users.m, users.p];
   }
-  splitwiseCreate(splitUsers, cost, description);
+  splitwiseCreate(msg, splitUsers, cost, description);
 });
 
 const Splitwise = require('splitwise');
@@ -279,7 +279,7 @@ const splitwiseAPI = Splitwise({
   consumerSecret: 'HXorLklyzQBnu8y7YBFb8Kt9lMp3yrzN9DIOLAWC'
 });
 
-function splitwiseCreate(users, cost, description) {
+function splitwiseCreate(msg, users, cost, description) {
   splitwiseAPI.createExpense({
     users,
     group_id: '5626964',
@@ -287,6 +287,11 @@ function splitwiseCreate(users, cost, description) {
     cost,
     payment: false,
     description
+  }).then((success) => {
+    bot.sendMessage(msg.chat.id, 'Expense added');
+    showKitty(msg.chat.id, '/kitty');
+  }, err => {
+    bot.sendMessage(msg.chat.id, 'Expense error');
   });
 }
 
