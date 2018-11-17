@@ -238,6 +238,22 @@ bot.on(['text'], function (msg) {
   }
 });
 
+bot.on(['/split'], function (msg) {
+  let id = msg.chat.id;
+  let price = msg.text.split(' ')[1] || '';
+  splitwise(price);
+});
+
+const Splitwise = require('splitwise');
+const splitwiseAPI = Splitwise({
+  consumerKey: 'CaTRJTDOXpcqK0iz5oBsE53kC6CrxWoIc9MtMZwV',
+  consumerSecret: 'HXorLklyzQBnu8y7YBFb8Kt9lMp3yrzN9DIOLAWC'
+});
+
+function splitwise() {
+  splitwiseAPI.getCurrentUser().then(console.log) // => { id: ... }
+}
+
 function eJunior(id, msg) {
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
