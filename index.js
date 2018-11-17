@@ -239,9 +239,9 @@ bot.on(['text'], function (msg) {
 });
 
 bot.on(['/split'], function (msg) {
-  let id = msg.chat.id;
-  let price = msg.text.split(' ')[1] || '';
-  splitwise(price);
+  const id = msg.chat.id;
+  const amount = Number(msg.text.split(' ')[1]) || 0;
+  splitwise(amount);
 });
 
 const Splitwise = require('splitwise');
@@ -250,8 +250,16 @@ const splitwiseAPI = Splitwise({
   consumerSecret: 'HXorLklyzQBnu8y7YBFb8Kt9lMp3yrzN9DIOLAWC'
 });
 
-function splitwise() {
-  splitwiseAPI.getCurrentUser().then(console.log) // => { id: ... }
+function splitwise(amount) {
+  // splitwiseAPI.createExpense({
+  //   users: [
+  //     { user_id: '6181181' },
+  //     { user_id: '34567890' }
+  //   ],
+  //   payment: false
+  // });
+  splitwiseAPI.getFriends().then(console.log)
+  splitwiseAPI.getGroups().then(console.log)
 }
 
 function eJunior(id, msg) {
