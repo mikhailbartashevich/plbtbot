@@ -242,7 +242,7 @@ bot.on(['/split'], function (msg) {
   const cost = Number(msg.text.split(' ')[1]) || 0;
   const description = msg.text.split(' ')[2] || 'SplitKot';
   let splitUsers = [];
-  if (msg.from.id === '281548620' || msg.from.id === '437814936') {
+  if (msg.from.id == '281548620' || msg.from.id == '437814936') {
     const users = {
       m: { user_id: '6181181', owed_share: cost / 2 },
       p: { user_id: '6181165', owed_share: cost / 2 }
@@ -260,7 +260,7 @@ bot.on(['/debt'], function (msg) {
   const description = msg.text.split(' ')[2] || 'DebtKot';
 
   let splitUsers = [];
-  if (msg.from.id === '281548620' || msg.from.id === '437814936') {
+  if (msg.from.id == '281548620' || msg.from.id == '437814936') {
     const users = {
       m: { user_id: '6181181', owed_share: cost },
       p: { user_id: '6181165', owed_share: cost }
