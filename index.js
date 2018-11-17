@@ -247,7 +247,7 @@ bot.on(['/split'], function (msg) {
       m: { user_id: '6181181', owed_share: cost / 2 },
       p: { user_id: '6181165', owed_share: cost / 2 }
     };
-    const user = msg.from.id === '437814936' ? 'm' : 'p';
+    const user = msg.from.id == '437814936' ? 'm' : 'p';
     users[user].paid_share = cost;
     splitUsers = [users.m, users.p];
   }
@@ -265,7 +265,7 @@ bot.on(['/debt'], function (msg) {
       m: { user_id: '6181181', owed_share: cost },
       p: { user_id: '6181165', owed_share: cost }
     };
-    const user = msg.from.id === '437814936' ? 'm' : 'p';
+    const user = msg.from.id == '437814936' ? 'm' : 'p';
     users[user].paid_share = cost;
     delete users[user].owed_share;
     splitUsers = [users.m, users.p];
