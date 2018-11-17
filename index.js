@@ -251,15 +251,16 @@ const splitwiseAPI = Splitwise({
 });
 
 function splitwise(amount) {
-  // splitwiseAPI.createExpense({
-  //   users: [
-  //     { user_id: '6181181' },
-  //     { user_id: '34567890' }
-  //   ],
-  //   payment: false
-  // });
-  splitwiseAPI.getFriends().then(console.log)
-  splitwiseAPI.getGroups().then(console.log)
+  splitwiseAPI.createExpense({
+    users: [
+      { user_id: '6181181' }, //m
+      { user_id: '6181165' } //p
+    ],
+    group_id: '5626964',
+    currency_code: 'PLN',
+    cost: amount,
+    payment: false
+  });
 }
 
 function eJunior(id, msg) {
