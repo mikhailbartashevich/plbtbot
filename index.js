@@ -254,7 +254,7 @@ function splitwise(amount) {
   splitwiseAPI.createExpense({
     users: [
       { user_id: '6181181', paid_share: amount }, //m
-      { user_id: '6181165', owed_share: amount/2 } //p
+      { user_id: '6181165', owed_share: amount } //p
     ],
     group_id: '5626964',
     currency_code: 'PLN',
