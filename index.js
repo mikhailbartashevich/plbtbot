@@ -255,7 +255,7 @@ function sendMovies(id, movies, i) {
 bot.on(['/awards'], function (msg) {
   let id = msg.chat.id;
   let title = msg.text.split(' ')[1] || 'cat';
-  title = title.replace(/\s/g, '%20');
+  title = title.replace(/\s/g, '+');
 
   request({ url: `http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
     const movies = [json];
