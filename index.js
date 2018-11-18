@@ -223,6 +223,26 @@ bot.on(['/price'], function (msg) {
 
 });
 
+bot.on(['/movie'], function (msg) {
+  let id = msg.chat.id;
+  let title = msg.text.split(' ')[1] || 'cat';
+
+  request({ url:  `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
+    const movies = json.Search || [];
+    bot.sendMessage(id, 'Found Movies:');
+    movies.forEach(
+      movie => {
+        bot.sendMessage(id, `${movie.Title} ${movie.Director} ${movie.Year} ${movie.Awards}`);
+        bot.sendPhoto(id, movie.Poster, {
+          fileName: 'image.jpg',
+          serverDownload: true
+        });
+      }
+    );
+  });
+
+});
+
 bot.on(['text'], function (msg) {
   const id = msg.chat.id;
   const text = msg.text.toLowerCase();
