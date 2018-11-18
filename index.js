@@ -262,7 +262,12 @@ bot.on(['/awards'], function (msg) {
     bot.sendMessage(id, 'Found Info:').then(_ => {
       movies.forEach(
         movie => {
-          bot.sendMessage(id, `${movie.Title} ${movie.Director} ${movie.Awards} http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`)
+          bot.sendMessage(id, `${movie.Title} 
+          ${movie.Director}
+          ${movie.Awards}
+          ${movie.BoxOffice}
+          https://www.imdb.com/title/${movie.imdbID}/
+          http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`)
             .then(_ => {
               bot.sendPhoto(id, movie.Poster, {
                 fileName: 'image.jpg',
