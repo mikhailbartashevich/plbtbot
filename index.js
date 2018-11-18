@@ -227,18 +227,22 @@ bot.on(['/movie'], function (msg) {
   let id = msg.chat.id;
   let title = msg.text.split(' ')[1] || 'cat';
 
-  request({ url:  `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
+  request({ url: `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
     const movies = json.Search || [];
-    bot.sendMessage(id, 'Found Movies:');
-    movies.forEach(
-      movie => {
-        bot.sendMessage(id, `${movie.Title} ${movie.Director} ${movie.Year} ${movie.Awards}`);
-        bot.sendPhoto(id, movie.Poster, {
-          fileName: 'image.jpg',
-          serverDownload: true
-        });
-      }
-    );
+    bot.sendMessage(id, 'Found Movies:').then(_ => {
+      movies.forEach(
+        movie => {
+          bot.sendMessage(id, `${movie.Title} ${movie.Director} ${movie.Year} ${movie.Awards}`)
+            .then(_ => {
+              bot.sendPhoto(id, movie.Poster, {
+                fileName: 'image.jpg',
+                serverDownload: true
+              });
+            })
+        }
+      );
+    })
+
   });
 
 });
@@ -249,11 +253,11 @@ bot.on(['text'], function (msg) {
   if (text.indexOf('запомните этот твит') > -1) {
     rememberTweet(id, msg);
   }
-  if (text.indexOf('картош') > -1 || text.indexOf('картоф') > -1 || text.indexOf('бульб') > -1 || text.indexOf('картох') > -1 ) {
+  if (text.indexOf('картош') > -1 || text.indexOf('картоф') > -1 || text.indexOf('бульб') > -1 || text.indexOf('картох') > -1) {
     kartoshkaJoke(id, msg);
   }
 
-  if (text.indexOf('ебучие джуны') > -1 || text.indexOf('ебучий джун') > -1 ) {
+  if (text.indexOf('ебучие джуны') > -1 || text.indexOf('ебучий джун') > -1) {
     eJunior(id, msg);
   }
 });
@@ -322,7 +326,7 @@ function eJunior(id, msg) {
     // Authorize a client with credentials, then call the Google Sheets API.
     authorize(JSON.parse(content), processEJunior, msg);
   });
-  
+
 }
 
 function kartoshkaJoke(id, msg) {
@@ -332,7 +336,7 @@ function kartoshkaJoke(id, msg) {
     // Authorize a client with credentials, then call the Google Sheets API.
     authorize(JSON.parse(content), processKartoshkaJoke, msg);
   });
-  
+
 }
 
 function rememberTweet(id, msg) {
@@ -342,7 +346,7 @@ function rememberTweet(id, msg) {
     // Authorize a client with credentials, then call the Google Sheets API.
     authorize(JSON.parse(content), appendTweet, msg);
   });
-  
+
 }
 
 // Start getting updates
@@ -429,7 +433,7 @@ function appendTweet(auth, msg, range = 'A1') {
     auth,
   };
   console.log('range', JSON.stringify(request));
-  const sheets = google.sheets({version: 'v4', auth});
+  const sheets = google.sheets({ version: 'v4', auth });
   sheets.spreadsheets.values.append(request, (err) => {
     if (err) {
       console.error(err);
@@ -466,13 +470,13 @@ function processMessage(auth, msg, countRange, range, photo, callbackMessage = '
     },
     auth,
   };
-  const sheets = google.sheets({version: 'v4', auth});
+  const sheets = google.sheets({ version: 'v4', auth });
 
   const kartoskaJokesURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/${countRange}?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
 
   request({ url: kartoskaJokesURL, json: true }, (err, res, json) => {
     const total = +json.values[0][0];
-    
+
     bot.sendPhoto(id, photo, {
       fileName: 'image.jpg',
       serverDownload: true
