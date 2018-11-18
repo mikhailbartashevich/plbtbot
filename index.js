@@ -247,7 +247,7 @@ function sendMovies(id, movies, i) {
       .then(_ => {
         bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
           .then(_ => {
-            sendMovies(id, movies, i++);
+            sendMovies(id, movies, i + 1);
           });
       });
 }
