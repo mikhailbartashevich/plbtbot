@@ -232,13 +232,16 @@ bot.on(['/movie'], function (msg) {
     bot.sendMessage(id, 'Found Movies:').then(_ => {
       movies.forEach(
         movie => {
-          bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
+          setTimeout(
+            bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
             .then(_ => {
               bot.sendPhoto(id, movie.Poster, {
                 fileName: 'image.jpg',
                 serverDownload: true
               });
-            });
+            }),
+            1000
+          )
         }
       );
     })
@@ -252,7 +255,7 @@ bot.on(['/awards'], function (msg) {
   let title = msg.text.split(' ')[1] || 'cat';
 
   request({ url: `http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
-    const movies = json.Search || [];
+    const movies = [json];
     bot.sendMessage(id, 'Found Info:').then(_ => {
       movies.forEach(
         movie => {
