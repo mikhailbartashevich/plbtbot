@@ -254,7 +254,9 @@ function sendMovies(id, movies, i) {
 
 bot.on(['/awards'], function (msg) {
   let id = msg.chat.id;
-  let title = msg.text.split(' ').shift().join('+') || 'cat';
+  const arr = msg.text.split(' ');
+  arr.shift();
+  let title = arr.join('+');
   request({ url: `http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
     const movies = [json];
     bot.sendMessage(id, 'Found Info:').then(_ => {
