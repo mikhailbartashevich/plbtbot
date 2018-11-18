@@ -232,17 +232,15 @@ bot.on(['/movie'], function (msg) {
     bot.sendMessage(id, 'Found Movies:').then(_ => {
       movies.forEach(
         movie => {
-          setTimeout(_ => {
-            bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
-              .then(_ => {
-                bot.sendPhoto(id, movie.Poster, {
-                  fileName: 'image.jpg',
-                  serverDownload: true
-                });
-              });
-          },
-            1000
-          )
+
+          bot.sendPhoto(id, movie.Poster, {
+            fileName: 'image.jpg',
+            serverDownload: true
+          })
+            .then(_ => {
+              bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
+                .then(_ => { });
+            });
         }
       );
     })
