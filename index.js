@@ -305,12 +305,7 @@ bot.on(['/awards'], function (msg) {
           bot
             .sendMessage(
               id,
-              `${movie.Title} 
-          ${movie.Director}
-          ${movie.Awards}
-          ${movie.BoxOffice}
-          https://www.imdb.com/title/${movie.imdbID}/
-          http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`
+              `${movie.Title} ${movie.Director} ${movie.Awards} ${movie.BoxOffice} https://www.imdb.com/title/${movie.imdbID}/`
             )
             .then(_ => {
               bot.sendPhoto(id, movie.Poster, {
