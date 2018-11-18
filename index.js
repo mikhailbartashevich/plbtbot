@@ -240,15 +240,15 @@ bot.on(['/movie'], function (msg) {
 function sendMovies(id, movies, i) {
   const movie = movies[i];
   if (movie)
-    bot.sendPhoto(id, movie.Poster, {
-      fileName: 'image.jpg',
-      serverDownload: true
-    })
+    bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
+      .then(_ =>
+        bot.sendPhoto(id, movie.Poster, {
+          fileName: 'image.jpg',
+          serverDownload: true
+        })
+      )
       .then(_ => {
-        bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
-          .then(_ => {
-            sendMovies(id, movies, i + 1);
-          });
+        sendMovies(id, movies, i + 1);
       });
 }
 
