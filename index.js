@@ -256,10 +256,10 @@ bot.on(['/price'], function (msg) {
 bot.on(['/movie'], function (msg) {
   let id = msg.chat.id
   let title = msg.text.split(' ')[1] || 'cat'
-
+  let page = msg.text.split(' ')[2] || '1'
   request(
     {
-      url: `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie`,
+      url: `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie&page=${page}`,
       json: true
     },
     function (err, res, json) {
