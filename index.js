@@ -1,246 +1,281 @@
-require('newrelic');
-const TeleBot = require('telebot');
-const request = require('request');
-const http = require('http');
-const bot = new TeleBot('538233729:AAHJqMW2om913dzeTOECVxUm3Nb6AMTy7Xo');
+require('newrelic')
+const TeleBot = require('telebot')
+const request = require('request')
+const http = require('http')
+const bot = new TeleBot('538233729:AAHJqMW2om913dzeTOECVxUm3Nb6AMTy7Xo')
 
-const fs = require('fs');
-const readline = require('readline');
-const { google } = require('googleapis');
+const fs = require('fs')
+const readline = require('readline')
+const { google } = require('googleapis')
 
 // If modifying these scopes, delete token.json.
 const SCOPES = [
   'https://www.googleapis.com/auth/drive',
   'https://www.googleapis.com/auth/drive.file',
   'https://www.googleapis.com/auth/spreadsheets'
-];
-const TOKEN_PATH = 'token.json';
+]
+const TOKEN_PATH = 'token.json'
 
-let interval = 0;
-let intervalTime = 0;
+let interval = 0
+let intervalTime = 0
 
 // Command keyboard
-const replyMarkup = bot.keyboard([
-  ['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/fiat']
-], { resize: true, once: false });
+const replyMarkup = bot.keyboard(
+  [['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/fiat']],
+  { resize: true, once: false }
+)
 
 // On command "start" or "help"
 bot.on(['/start', '/help'], function (msg) {
+  return bot.sendMessage(
+    msg.chat.id,
+    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /fiat usd_pln pair, and /price crypto',
+    { replyMarkup }
+  )
+})
 
-  return bot.sendMessage(msg.chat.id,
-    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /fiat usd_pln pair, and /price crypto', { replyMarkup }
-  );
+function showKitty (id, cmd) {
+  const API = 'https://thecatapi.com/api/images/get?format=src&type='
 
-});
-
-function showKitty(id, cmd) {
-  const API = 'https://thecatapi.com/api/images/get?format=src&type=';
-
-  let promise;
+  let promise
   // Photo or gif?
   if (cmd == '/kitty') {
     promise = bot.sendPhoto(id, API + 'jpg', {
       fileName: 'kitty.jpg',
       serverDownload: true
-    });
+    })
   } else {
     promise = bot.sendDocument(id, API + 'gif#', {
       fileName: 'kitty.gif',
       serverDownload: true
-    });
+    })
   }
 
   // Send "uploading photo" action
-  bot.sendAction(id, 'upload_photo');
-  return promise;
+  bot.sendAction(id, 'upload_photo')
+  return promise
 }
 
 // On command "kitty" or "kittygif"
 bot.on(['/kitty', '/kittygif'], function (msg) {
-  let id = msg.chat.id;
-  let cmd = msg.text.split(' ')[0];
+  let id = msg.chat.id
+  let cmd = msg.text.split(' ')[0]
   return showKitty(id, cmd).catch(error => {
-    console.log('[error]', error);
+    console.log('[error]', error)
     // Send an error
-    bot.sendMessage(id, `😿 An error ${error} occurred, try again.`);
-  });
+    bot.sendMessage(id, `😿 An error ${error} occurred, try again.`)
+  })
+})
 
-});
-
-function checkPlbtPrice(id) {
-  request({ url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true }, function (err, res, json) {
-    let price = json.data.quotes.USD.price;
-    let title = 'ГКТИ';
-    let message = `The price is ${price}.`;
-    if (price > 4) {
-      message += ` Yura is a rich man.`;
-      title = 'ГКТИиЮ';
+function checkPlbtPrice (id) {
+  request(
+    { url: 'https://api.coinmarketcap.com/v2/ticker/1784/', json: true },
+    function (err, res, json) {
+      let price = json.data.quotes.USD.price
+      let title = 'ГКТИ'
+      let message = `The price is ${price}.`
+      if (price > 4) {
+        message += ` Yura is a rich man.`
+        title = 'ГКТИиЮ'
+      }
+      bot.sendMessage(id, message)
+      if (price < 3.9) {
+        bot.sendMessage(id, `😿 Here is a kitty for Yura.`)
+        showKitty(id, '/kitty').catch(error => console.log('[error]', error))
+      }
+      bot.setChatTitle(id, title).catch(error => console.log('Error:', error))
     }
-    bot.sendMessage(id, message);
-    if (price < 3.9) {
-      bot.sendMessage(id, `😿 Here is a kitty for Yura.`);
-      showKitty(id, '/kitty').catch(error => console.log('[error]', error));
-    }
-    bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
-  });
+  )
 }
 
 bot.on(['/plbt'], function (msg) {
-  let id = msg.chat.id;
-  checkPlbtPrice(id);
-});
+  let id = msg.chat.id
+  checkPlbtPrice(id)
+})
 
-function checkXrpPrice(id) {
-  request({ url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true }, function (err, res, json) {
-    let price = json.data.quotes.USD.price;
-    let title = 'ГКТИ';
-    let message = `The price is ${price}.`;
-    if (price > 1.5) {
-      message += ` To the moon!`;
-      title = 'КТИ';
+function checkXrpPrice (id) {
+  request(
+    { url: 'https://api.coinmarketcap.com/v2/ticker/52/', json: true },
+    function (err, res, json) {
+      let price = json.data.quotes.USD.price
+      let title = 'ГКТИ'
+      let message = `The price is ${price}.`
+      if (price > 1.5) {
+        message += ` To the moon!`
+        title = 'КТИ'
+      }
+      bot.sendMessage(id, message)
+      if (price < 0.9) {
+        bot.sendMessage(id, `😿 Here is a kitty for Gore Traders.`)
+        showKitty(id, '/kitty').catch(error => console.log('[error]', error))
+      }
+      bot.setChatTitle(id, title).catch(error => console.log('Error:', error))
     }
-    bot.sendMessage(id, message);
-    if (price < 0.9) {
-      bot.sendMessage(id, `😿 Here is a kitty for Gore Traders.`);
-      showKitty(id, '/kitty').catch(error => console.log('[error]', error));
-    }
-    bot.setChatTitle(id, title).catch(error => console.log('Error:', error));
-  });
+  )
 }
 
 bot.on(['/xrp'], function (msg) {
-  let id = msg.chat.id;
-  checkXrpPrice(id);
-});
+  let id = msg.chat.id
+  checkXrpPrice(id)
+})
 
 bot.on(['/remont'], function (msg) {
-  let id = msg.chat.id;
-  checkRemontPrice(id);
-});
+  let id = msg.chat.id
+  checkRemontPrice(id)
+})
 
-function checkRemontPrice(id) {
-  const renovationURL = `https://sheets.googleapis.com/v4/spreadsheets/1ZXASrDKPS2oF-UkrydC2N6khMuyJnanRctiEqu1wvEw/values/H16?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
+function checkRemontPrice (id) {
+  const renovationURL = `https://sheets.googleapis.com/v4/spreadsheets/1ZXASrDKPS2oF-UkrydC2N6khMuyJnanRctiEqu1wvEw/values/H16?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`
 
   request({ url: renovationURL, json: true }, function (err, res, json) {
-    const total = json.values[0][0];
-    bot.sendMessage(id, `Yura the Rich spent already for renovation: ${total}`);
-  });
-
+    const total = json.values[0][0]
+    bot.sendMessage(id, `Yura the Rich spent already for renovation: ${total}`)
+  })
 }
 
-function checkBtcPrice(id) {
-  request({ url: 'https://api.coinmarketcap.com/v2/ticker/1/', json: true }, function (err, res, json) {
-    let price = json.data.quotes.USD.price;
-    let message = `The price is ${price}.`;
-    if (price > 10000) {
-      message += ` To the moon!`;
-    }
-    bot.sendMessage(id, message);
-    if (price < 9000) {
-      bot.sendMessage(id, `MtGox, Seriously ?! 😿 Here is a kitty for the team.`);
-      showKitty(id, '/kitty').catch(error => console.log('[error]', error));
-    }
+function checkBtcPrice (id) {
+  request(
+    { url: 'https://api.coinmarketcap.com/v2/ticker/1/', json: true },
+    function (err, res, json) {
+      let price = json.data.quotes.USD.price
+      let message = `The price is ${price}.`
+      if (price > 10000) {
+        message += ` To the moon!`
+      }
+      bot.sendMessage(id, message)
+      if (price < 9000) {
+        bot.sendMessage(
+          id,
+          `MtGox, Seriously ?! 😿 Here is a kitty for the team.`
+        )
+        showKitty(id, '/kitty').catch(error => console.log('[error]', error))
+      }
 
-    let photo = 'https://i.obozrevatel.com/2014/12/17/281603.jpg?size=600x400';
-    if (price > 8000) {
-      photo = 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg';
+      let photo = 'https://i.obozrevatel.com/2014/12/17/281603.jpg?size=600x400'
+      if (price > 8000) {
+        photo =
+          'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg'
+      }
+      bot
+        .setChatPhoto(id, photo, { serverDownload: true })
+        .catch(error => console.log('[error]', error))
     }
-    bot.setChatPhoto(id, photo, { serverDownload: true }).catch(error => console.log('[error]', error));
-  });
+  )
 }
 
 bot.on(['/btc'], function (msg) {
-  let id = msg.chat.id;
-  checkBtcPrice(id);
-});
+  let id = msg.chat.id
+  checkBtcPrice(id)
+})
 
-function checkFiatPrice(id, pair) {
-  request({ url: `http://free.currencyconverterapi.com/api/v5/convert?q=${pair}&compact=y`, json: true },
+function checkFiatPrice (id, pair) {
+  request(
+    {
+      url: `http://free.currencyconverterapi.com/api/v5/convert?q=${pair}&compact=y`,
+      json: true
+    },
     function (err, res, json) {
-      const keys = Object.keys(json);
-      const key = keys.length ? keys[0] : '';
-      let message = '';
+      const keys = Object.keys(json)
+      const key = keys.length ? keys[0] : ''
+      let message = ''
 
       if (key) {
-        const price = json[key].val;
-        message = `The price is ${price}.`;
+        const price = json[key].val
+        message = `The price is ${price}.`
 
         if (pair.toLowerCase() === 'usd_pln') {
           if (price > 3.75) {
-            message += ` You are too rich for the kitty!`;
+            message += ` You are too rich for the kitty!`
           } else {
-            message += ` 😿 Here is a kitty for the team.`;
-            showKitty(id, '/kitty').catch(error => console.log('[error]', error));
+            message += ` 😿 Here is a kitty for the team.`
+            showKitty(id, '/kitty').catch(error =>
+              console.log('[error]', error)
+            )
           }
         }
       } else {
-        message = `No such fiat pair.`;
+        message = `No such fiat pair.`
       }
 
-      bot.sendMessage(id, message);
-    });
+      bot.sendMessage(id, message)
+    }
+  )
 }
 
 bot.on(['/fiat'], function (msg) {
-  const id = msg.chat.id;
-  const pair = msg.text.split(' ')[1] || 'usd_pln';
-  checkFiatPrice(id, pair);
-});
+  const id = msg.chat.id
+  const pair = msg.text.split(' ')[1] || 'usd_pln'
+  checkFiatPrice(id, pair)
+})
 
 bot.on(['/plbtInterval'], function (msg) {
-  let id = msg.chat.id;
-  const time = msg.text.split(' ')[1] || 10000;
-  intervalTime = parseInt(time, 10);
-  clearInterval(interval);
-  interval = setInterval(() => checkPlbtPrice(id), intervalTime);
-  bot.sendMessage(id, `Interval ${intervalTime} started.`);
-});
+  let id = msg.chat.id
+  const time = msg.text.split(' ')[1] || 10000
+  intervalTime = parseInt(time, 10)
+  clearInterval(interval)
+  interval = setInterval(() => checkPlbtPrice(id), intervalTime)
+  bot.sendMessage(id, `Interval ${intervalTime} started.`)
+})
 
 bot.on(['/stopInterval'], function (msg) {
-  let id = msg.chat.id;
-  clearInterval(interval);
-  bot.sendMessage(id, `Interval ${intervalTime} stopped.`);
-});
+  let id = msg.chat.id
+  clearInterval(interval)
+  bot.sendMessage(id, `Interval ${intervalTime} stopped.`)
+})
 
 bot.on(['/price'], function (msg) {
-  let id = msg.chat.id;
-  let crypto = msg.text.split(' ')[1] || '';
+  let id = msg.chat.id
+  let crypto = msg.text.split(' ')[1] || ''
 
-  request({ url: 'https://api.coinmarketcap.com/v2/listings/', json: true }, function (err, res, json) {
-    const cryptos = json.data;
-    const toFind = cryptos.find(cr => cr.symbol.toLowerCase() === crypto.toLowerCase());
+  request(
+    { url: 'https://api.coinmarketcap.com/v2/listings/', json: true },
+    function (err, res, json) {
+      const cryptos = json.data
+      const toFind = cryptos.find(
+        cr => cr.symbol.toLowerCase() === crypto.toLowerCase()
+      )
 
-    if (toFind) {
-      request({ url: `https://api.coinmarketcap.com/v2/ticker/${toFind.id}/`, json: true }, function (err, res, json) {
-        let price = json.data.quotes.USD.price;
-        bot.sendMessage(id, `The price is ${price}.`);
-      });
-    } else {
-      bot.sendMessage(id, `Crypto is not found.`);
+      if (toFind) {
+        request(
+          {
+            url: `https://api.coinmarketcap.com/v2/ticker/${toFind.id}/`,
+            json: true
+          },
+          function (err, res, json) {
+            let price = json.data.quotes.USD.price
+            bot.sendMessage(id, `The price is ${price}.`)
+          }
+        )
+      } else {
+        bot.sendMessage(id, `Crypto is not found.`)
+      }
     }
-
-  });
-
-});
+  )
+})
 
 bot.on(['/movie'], function (msg) {
-  let id = msg.chat.id;
-  let title = msg.text.split(' ')[1] || 'cat';
+  let id = msg.chat.id
+  let title = msg.text.split(' ')[1] || 'cat'
 
-  request({ url: `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
-    const movies = json.Search || [];
-    bot.sendMessage(id, 'Found Movies:').then(_ => {
-      sendMovies(id, movies, 0);
-    })
+  request(
+    {
+      url: `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie`,
+      json: true
+    },
+    function (err, res, json) {
+      const movies = json.Search || []
+      bot.sendMessage(id, 'Found Movies:').then(_ => {
+        sendMovies(id, movies, 0)
+      })
+    }
+  )
+})
 
-  });
-
-});
-
-function sendMovies(id, movies, i) {
-  const movie = movies[i];
-  if (movie)
-    bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
+function sendMovies (id, movies, i) {
+  const movie = movies[i]
+  if (movie) {
+    bot
+      .sendMessage(id, `${movie.Title} ${movie.Year}`)
       .then(_ =>
         bot.sendPhoto(id, movie.Poster, {
           fileName: 'image.jpg',
@@ -248,151 +283,168 @@ function sendMovies(id, movies, i) {
         })
       )
       .then(_ => {
-        sendMovies(id, movies, i + 1);
-      });
+        sendMovies(id, movies, i + 1)
+      })
+  }
 }
 
 bot.on(['/awards'], function (msg) {
-  let id = msg.chat.id;
-  const arr = msg.text.split(' ');
-  arr.shift();
-  let title = arr.join('+');
-  request({ url: `http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
-    const movies = [json];
-    bot.sendMessage(id, 'Found Info:').then(_ => {
-      movies.forEach(
-        movie => {
-          bot.sendMessage(id, `${movie.Title} 
+  let id = msg.chat.id
+  const arr = msg.text.split(' ')
+  arr.shift()
+  let title = arr.join('+')
+  request(
+    {
+      url: `http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`,
+      json: true
+    },
+    function (err, res, json) {
+      const movies = [json]
+      bot.sendMessage(id, 'Found Info:').then(_ => {
+        movies.forEach(movie => {
+          bot
+            .sendMessage(
+              id,
+              `${movie.Title} 
           ${movie.Director}
           ${movie.Awards}
           ${movie.BoxOffice}
           https://www.imdb.com/title/${movie.imdbID}/
-          http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`)
+          http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`
+            )
             .then(_ => {
               bot.sendPhoto(id, movie.Poster, {
                 fileName: 'image.jpg',
                 serverDownload: true
-              });
-            });
-        }
-      );
-    })
-
-  });
-
-});
+              })
+            })
+        })
+      })
+    }
+  )
+})
 
 bot.on(['text'], function (msg) {
-  const id = msg.chat.id;
-  const text = msg.text.toLowerCase();
+  const id = msg.chat.id
+  const text = msg.text.toLowerCase()
   if (text.indexOf('запомните этот твит') > -1) {
-    rememberTweet(id, msg);
+    rememberTweet(id, msg)
   }
-  if (text.indexOf('картош') > -1 || text.indexOf('картоф') > -1 || text.indexOf('бульб') > -1 || text.indexOf('картох') > -1) {
-    kartoshkaJoke(id, msg);
+  if (
+    text.indexOf('картош') > -1 ||
+    text.indexOf('картоф') > -1 ||
+    text.indexOf('бульб') > -1 ||
+    text.indexOf('картох') > -1
+  ) {
+    kartoshkaJoke(id, msg)
   }
 
   if (text.indexOf('ебучие джуны') > -1 || text.indexOf('ебучий джун') > -1) {
-    eJunior(id, msg);
+    eJunior(id, msg)
   }
-});
+})
 
 bot.on(['/split'], function (msg) {
-  const cost = Number(msg.text.split(' ')[1]) || 0;
-  const description = msg.text.split(' ')[2] || 'SplitKot';
-  let splitUsers = [];
+  const cost = Number(msg.text.split(' ')[1]) || 0
+  const description = msg.text.split(' ')[2] || 'SplitKot'
+  let splitUsers = []
   if (msg.from.id == '281548620' || msg.from.id == '437814936') {
     const users = {
       m: { user_id: '6181181', owed_share: cost / 2 },
       p: { user_id: '6181165', owed_share: cost / 2 }
-    };
-    const user = msg.from.id == '437814936' ? 'm' : 'p';
-    users[user].paid_share = cost;
-    splitUsers = [users.m, users.p];
+    }
+    const user = msg.from.id == '437814936' ? 'm' : 'p'
+    users[user].paid_share = cost
+    splitUsers = [users.m, users.p]
   }
-  console.log(splitUsers);
-  splitwiseCreate(msg, splitUsers, cost, description);
-});
+  console.log(splitUsers)
+  splitwiseCreate(msg, splitUsers, cost, description)
+})
 
 bot.on(['/debt'], function (msg) {
-  const cost = Number(msg.text.split(' ')[1]) || 0;
-  const description = msg.text.split(' ')[2] || 'DebtKot';
+  const cost = Number(msg.text.split(' ')[1]) || 0
+  const description = msg.text.split(' ')[2] || 'DebtKot'
 
-  let splitUsers = [];
+  let splitUsers = []
   if (msg.from.id == '281548620' || msg.from.id == '437814936') {
     const users = {
       m: { user_id: '6181181', owed_share: cost },
       p: { user_id: '6181165', owed_share: cost }
-    };
-    const user = msg.from.id == '437814936' ? 'm' : 'p';
-    users[user].paid_share = cost;
-    delete users[user].owed_share;
-    splitUsers = [users.m, users.p];
+    }
+    const user = msg.from.id == '437814936' ? 'm' : 'p'
+    users[user].paid_share = cost
+    delete users[user].owed_share
+    splitUsers = [users.m, users.p]
   }
-  splitwiseCreate(msg, splitUsers, cost, description);
-});
+  splitwiseCreate(msg, splitUsers, cost, description)
+})
 
-const Splitwise = require('splitwise');
+const Splitwise = require('splitwise')
 const splitwiseAPI = Splitwise({
   consumerKey: 'CaTRJTDOXpcqK0iz5oBsE53kC6CrxWoIc9MtMZwV',
   consumerSecret: 'HXorLklyzQBnu8y7YBFb8Kt9lMp3yrzN9DIOLAWC'
-});
+})
 
-function splitwiseCreate(msg, users, cost, description) {
-  splitwiseAPI.createExpense({
-    users,
-    group_id: '5626964',
-    currency_code: 'PLN',
-    cost,
-    payment: false,
-    description
-  }).then((success) => {
-    bot.sendMessage(msg.chat.id, 'Expense added');
-    showKitty(msg.chat.id, '/kitty');
-  }, err => {
-    bot.sendMessage(msg.chat.id, 'Expense error');
-  });
+function splitwiseCreate (msg, users, cost, description) {
+  splitwiseAPI
+    .createExpense({
+      users,
+      group_id: '5626964',
+      currency_code: 'PLN',
+      cost,
+      payment: false,
+      description
+    })
+    .then(
+      success => {
+        bot.sendMessage(msg.chat.id, 'Expense added')
+        showKitty(msg.chat.id, '/kitty')
+      },
+      err => {
+        bot.sendMessage(msg.chat.id, 'Expense error')
+      }
+    )
 }
 
-function eJunior(id, msg) {
+function eJunior (id, msg) {
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
+    if (err) return console.log('Error loading client secret file:', err)
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), processEJunior, msg);
-  });
-
+    authorize(JSON.parse(content), processEJunior, msg)
+  })
 }
 
-function kartoshkaJoke(id, msg) {
+function kartoshkaJoke (id, msg) {
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
+    if (err) return console.log('Error loading client secret file:', err)
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), processKartoshkaJoke, msg);
-  });
-
+    authorize(JSON.parse(content), processKartoshkaJoke, msg)
+  })
 }
 
-function rememberTweet(id, msg) {
+function rememberTweet (id, msg) {
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
+    if (err) return console.log('Error loading client secret file:', err)
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), appendTweet, msg);
-  });
-
+    authorize(JSON.parse(content), appendTweet, msg)
+  })
 }
 
 // Start getting updates
-bot.start();
+bot.start()
 
-http.createServer(function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write('Welcome to @PolybiusBot. It is a Telegram bot. To use it open Telegram app.');
-  res.end();
-}).listen(process.env.PORT || 3000);
-
+http
+  .createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/plain' })
+    res.write(
+      'Welcome to @PolybiusBot. It is a Telegram bot. To use it open Telegram app.'
+    )
+    res.end()
+  })
+  .listen(process.env.PORT || 3000)
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -400,22 +452,25 @@ http.createServer(function (req, res) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback, data) {
-  const { client_secret, client_id, redirect_uris } = credentials;
+function authorize (credentials, callback, data) {
+  const { client_secret, client_id, redirect_uris } = credentials
   const oAuth2Client = new google.auth.OAuth2(
-    client_id, client_secret, redirect_uris[0]);
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  )
 
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, (err, token) => {
-    if (err) return getNewToken(oAuth2Client, callback);
+    if (err) return getNewToken(oAuth2Client, callback)
     try {
       JSON.parse(token)
     } catch (errr) {
-      return getNewToken(oAuth2Client, callback);
+      return getNewToken(oAuth2Client, callback)
     }
-    oAuth2Client.setCredentials(JSON.parse(token));
-    callback(oAuth2Client, data);
-  });
+    oAuth2Client.setCredentials(JSON.parse(token))
+    callback(oAuth2Client, data)
+  })
 }
 
 /**
@@ -424,29 +479,29 @@ function authorize(credentials, callback, data) {
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
-function getNewToken(oAuth2Client, callback) {
+function getNewToken (oAuth2Client, callback) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
-    scope: SCOPES,
-  });
-  console.log('Authorize this app by visiting this url:', authUrl);
+    scope: SCOPES
+  })
+  console.log('Authorize this app by visiting this url:', authUrl)
   const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout,
-  });
-  rl.question('Enter the code from that page here: ', (code) => {
-    rl.close();
+    output: process.stdout
+  })
+  rl.question('Enter the code from that page here: ', code => {
+    rl.close()
     oAuth2Client.getToken(code, (err, token) => {
-      if (err) return console.error('Error while trying to retrieve access token', err);
-      oAuth2Client.setCredentials(token);
+      if (err) { return console.error('Error while trying to retrieve access token', err) }
+      oAuth2Client.setCredentials(token)
       // Store the token to disk for later program executions
-      fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-        if (err) console.error(err);
-        console.log('Token stored to', TOKEN_PATH);
-      });
-      callback(oAuth2Client);
-    });
-  });
+      fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
+        if (err) console.error(err)
+        console.log('Token stored to', TOKEN_PATH)
+      })
+      callback(oAuth2Client)
+    })
+  })
 }
 
 /**
@@ -454,83 +509,95 @@ function getNewToken(oAuth2Client, callback) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function appendTweet(auth, msg, range = 'A1') {
+function appendTweet (auth, msg, range = 'A1') {
   const request = {
-    spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
+    spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw', // TODO: Update placeholder value.
     range,
     insertDataOption: 'INSERT_ROWS',
-    valueInputOption: 'RAW',  // TODO: Update placeholder value.
+    valueInputOption: 'RAW', // TODO: Update placeholder value.
     resource: {
-      values: [[
-        new Date().toLocaleDateString() + ' ' + msg.from.first_name + ': ' + msg.text
-      ]]
+      values: [
+        [
+          new Date().toLocaleDateString() +
+            ' ' +
+            msg.from.first_name +
+            ': ' +
+            msg.text
+        ]
+      ]
     },
-    auth,
-  };
-  console.log('range', JSON.stringify(request));
-  const sheets = google.sheets({ version: 'v4', auth });
-  sheets.spreadsheets.values.append(request, (err) => {
+    auth
+  }
+  console.log('range', JSON.stringify(request))
+  const sheets = google.sheets({ version: 'v4', auth })
+  sheets.spreadsheets.values.append(request, err => {
     if (err) {
-      console.error(err);
-      return;
+      console.error(err)
+      return
     }
-    bot.sendMessage(msg.chat.id, `Remembered. https://docs.google.com/spreadsheets/d/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw`);
-  });
+    bot.sendMessage(
+      msg.chat.id,
+      `Remembered. https://docs.google.com/spreadsheets/d/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw`
+    )
+  })
 }
 
-function processEJunior(auth, msg) {
-  const photo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Paris_Tuileries_Garden_Facepalm_statue.jpg/300px-Paris_Tuileries_Garden_Facepalm_statue.jpg';
-  const callbackMessage = 'Опять ебучий джун?';
-  const range = 'C:C';
+function processEJunior (auth, msg) {
+  const photo =
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Paris_Tuileries_Garden_Facepalm_statue.jpg/300px-Paris_Tuileries_Garden_Facepalm_statue.jpg'
+  const callbackMessage = 'Опять ебучий джун?'
+  const range = 'C:C'
   processMessage(auth, msg, 'C2', range, photo, callbackMessage)
 }
 
-function processKartoshkaJoke(auth, msg) {
-  const photo = 'http://www.forumdaily.com/wp-content/uploads/2015/08/aleksandr-lukashenko-s-synom-dobyvaet-kartoshku_rect_ffaaec783c367451f74a5ba4605cbe90.jpeg';
-  const callbackMessage = 'Что это, еще одна бульба-шутка?';
-  const range = 'B:B';
+function processKartoshkaJoke (auth, msg) {
+  const photo =
+    'http://www.forumdaily.com/wp-content/uploads/2015/08/aleksandr-lukashenko-s-synom-dobyvaet-kartoshku_rect_ffaaec783c367451f74a5ba4605cbe90.jpeg'
+  const callbackMessage = 'Что это, еще одна бульба-шутка?'
+  const range = 'B:B'
   processMessage(auth, msg, 'B2', range, photo, callbackMessage)
 }
 
-function processMessage(auth, msg, countRange, range, photo, callbackMessage = '') {
-  const id = msg.chat.id;
+function processMessage (
+  auth,
+  msg,
+  countRange,
+  range,
+  photo,
+  callbackMessage = ''
+) {
+  const id = msg.chat.id
   const sheetsRequest = {
-    spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw',  // TODO: Update placeholder value.
+    spreadsheetId: '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw', // TODO: Update placeholder value.
     range: countRange,
-    valueInputOption: 'RAW',  // TODO: Update placeholder value.
+    valueInputOption: 'RAW', // TODO: Update placeholder value.
     resource: {
-      values: [[
-        1
-      ]]
+      values: [[1]]
     },
-    auth,
-  };
-  const sheets = google.sheets({ version: 'v4', auth });
+    auth
+  }
+  const sheets = google.sheets({ version: 'v4', auth })
 
-  const kartoskaJokesURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/${countRange}?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`;
+  const kartoskaJokesURL = `https://sheets.googleapis.com/v4/spreadsheets/1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw/values/${countRange}?key=AIzaSyBT95iNZMJphiiXzbKUTffs8T3TFVwf8XM`
 
   request({ url: kartoskaJokesURL, json: true }, (err, res, json) => {
-    const total = +json.values[0][0];
+    const total = +json.values[0][0]
 
     bot.sendPhoto(id, photo, {
       fileName: 'image.jpg',
       serverDownload: true
-    });
-    bot.sendMessage(id, `${callbackMessage} Нашучено: ${total + 1}`);
-    appendTweet(auth, msg, range);
+    })
+    bot.sendMessage(id, `${callbackMessage} Нашучено: ${total + 1}`)
+    appendTweet(auth, msg, range)
 
     sheetsRequest.resource = {
-      values: [[
-        total + 1
-      ]]
-    };
+      values: [[total + 1]]
+    }
 
-    sheets.spreadsheets.values.update(sheetsRequest, (err) => {
+    sheets.spreadsheets.values.update(sheetsRequest, err => {
       if (err) {
-        console.error(err);
-        return;
+        console.error(err)
       }
-    });
-  });
-
+    })
+  })
 }
