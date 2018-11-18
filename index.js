@@ -256,7 +256,7 @@ bot.on(['/awards'], function (msg) {
   let id = msg.chat.id;
   let title = msg.text.split(' ')[1] || 'cat';
 
-  request({ url: `http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
+  request({ url: `http://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
     const movies = [json];
     bot.sendMessage(id, 'Found Info:').then(_ => {
       movies.forEach(
