@@ -261,7 +261,7 @@ bot.on(['/awards'], function (msg) {
     bot.sendMessage(id, 'Found Info:').then(_ => {
       movies.forEach(
         movie => {
-          bot.sendMessage(id, `${movie.Title} ${movie.Awards} ${movie.Awards}`)
+          bot.sendMessage(id, `${movie.Title} ${movie.Director} ${movie.Awards}`)
             .then(_ => {
               bot.sendPhoto(id, movie.Poster, {
                 fileName: 'image.jpg',
