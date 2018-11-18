@@ -232,13 +232,37 @@ bot.on(['/movie'], function (msg) {
     bot.sendMessage(id, 'Found Movies:').then(_ => {
       movies.forEach(
         movie => {
-          bot.sendMessage(id, `${movie.Title} ${movie.Director} ${movie.Year} ${movie.Awards}`)
+          bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
             .then(_ => {
               bot.sendPhoto(id, movie.Poster, {
                 fileName: 'image.jpg',
                 serverDownload: true
               });
-            })
+            });
+        }
+      );
+    })
+
+  });
+
+});
+
+bot.on(['/awards'], function (msg) {
+  let id = msg.chat.id;
+  let title = msg.text.split(' ')[1] || 'cat';
+
+  request({ url: `http://www.omdbapi.com/?t=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
+    const movies = json.Search || [];
+    bot.sendMessage(id, 'Found Info:').then(_ => {
+      movies.forEach(
+        movie => {
+          bot.sendMessage(id, `${movie.Title} ${movie.Awards} ${movie.Awards}`)
+            .then(_ => {
+              bot.sendPhoto(id, movie.Poster, {
+                fileName: 'image.jpg',
+                serverDownload: true
+              });
+            });
         }
       );
     })
