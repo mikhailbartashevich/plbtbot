@@ -230,24 +230,27 @@ bot.on(['/movie'], function (msg) {
   request({ url: `http://www.omdbapi.com/?s=${title}&apikey=ad5027a4&type=movie`, json: true }, function (err, res, json) {
     const movies = json.Search || [];
     bot.sendMessage(id, 'Found Movies:').then(_ => {
-      movies.forEach(
-        movie => {
-
-          bot.sendPhoto(id, movie.Poster, {
-            fileName: 'image.jpg',
-            serverDownload: true
-          })
-            .then(_ => {
-              bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
-                .then(_ => { });
-            });
-        }
-      );
+      sendMovies(id, movies, 0);
     })
 
   });
 
 });
+
+function sendMovies(id, movies, i) {
+  const movie = movies[i];
+  if (movie)
+    bot.sendPhoto(id, movie.Poster, {
+      fileName: 'image.jpg',
+      serverDownload: true
+    })
+      .then(_ => {
+        bot.sendMessage(id, `${movie.Title} ${movie.Year}`)
+          .then(_ => {
+            sendMovies(id, movies, i++);
+          });
+      });
+}
 
 bot.on(['/awards'], function (msg) {
   let id = msg.chat.id;
