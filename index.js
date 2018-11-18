@@ -285,6 +285,7 @@ function sendMovies (id, movies, i) {
       .then(_ => {
         sendMovies(id, movies, i + 1)
       })
+      .catch(console.log)
   }
 }
 
@@ -311,7 +312,7 @@ bot.on(['/awards'], function (msg) {
               bot.sendPhoto(id, movie.Poster, {
                 fileName: 'image.jpg',
                 serverDownload: true
-              })
+              }).catch(console.log);
             })
         })
       })
