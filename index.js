@@ -285,7 +285,10 @@ function sendMovies (id, movies, i) {
       .then(_ => {
         sendMovies(id, movies, i + 1)
       })
-      .catch(console.log)
+      .catch(_ => {
+        console.log(_)
+        sendMovies(id, movies, i + 1)
+      })
   }
 }
 
@@ -309,10 +312,12 @@ bot.on(['/awards'], function (msg) {
               `${movie.Title} ${movie.Director} ${movie.Awards} ${movie.BoxOffice} https://www.imdb.com/title/${movie.imdbID}/`
             )
             .then(_ => {
-              bot.sendPhoto(id, movie.Poster, {
-                fileName: 'image.jpg',
-                serverDownload: true
-              }).catch(console.log);
+              bot
+                .sendPhoto(id, movie.Poster, {
+                  fileName: 'image.jpg',
+                  serverDownload: true
+                })
+                .catch(console.log)
             })
         })
       })
@@ -488,7 +493,9 @@ function getNewToken (oAuth2Client, callback) {
   rl.question('Enter the code from that page here: ', code => {
     rl.close()
     oAuth2Client.getToken(code, (err, token) => {
-      if (err) { return console.error('Error while trying to retrieve access token', err) }
+      if (err) {
+        return console.error('Error while trying to retrieve access token', err)
+      }
       oAuth2Client.setCredentials(token)
       // Store the token to disk for later program executions
       fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
