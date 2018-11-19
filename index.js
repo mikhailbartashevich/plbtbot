@@ -383,8 +383,8 @@ bot.on(['/debt'], function (msg) {
 
 const Splitwise = require('splitwise');
 const splitwiseAPI = Splitwise({
-  consumerKey: 'CaTRJTDOXpcqK0iz5oBsE53kC6CrxWoIc9MtMZwV',
-  consumerSecret: 'HXorLklyzQBnu8y7YBFb8Kt9lMp3yrzN9DIOLAWC'
+  consumerKey: process.env.SPLITWISE_CONSUMER_KEY,
+  consumerSecret: process.env.SPLITWISE_SECRET
 });
 
 function splitwiseCreate (msg, users) {
@@ -396,7 +396,7 @@ function splitwiseCreate (msg, users) {
   splitwiseAPI
     .createExpense({
       users,
-      group_id: '5626964',
+      group_id: process.env.SPLITWISE_GROUP,
       currency_code: stringCost.replace(cost, '').toUpperCase() || 'PLN',
       cost,
       payment: false,
