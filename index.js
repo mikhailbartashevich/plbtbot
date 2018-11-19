@@ -611,7 +611,7 @@ function processMessage (
   })
 }
 
-function multilangKeywords(text) {
+function keywords (text) {
   return new Promise((resolve, reject) => {
     request.post(
       {
@@ -634,29 +634,25 @@ function multilangKeywords(text) {
 
 function translate(text) {
   return new Promise((resolve, reject) => {
-    request.post(
+    request.get(
       {
         url: `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ru&tl=en&dt=t&q=${encodeURI(text)}`,
-        json: true,
-        form: {
-          text: text,
-          api_key: process.env.PARALLEL_DOTS_KEY
-        }
+        json: true
       },
       function (err, httpResponse, body) {
         if (err) {
           reject({ Error: err })
         }
+        console.log(body)
         resolve(body)
       }
     )
   })
 }
 
-
-
 bot.on(['/tokens'], function (msg) {
-  multilangKeywords(msg.text)
+  translate(msg.text)
+    .then(text => keywords(text))
     .then(response => {
       const confidentWords = response.keywords.filter(
         keyword => keyword.confidence_score > 0.85
@@ -670,4 +666,3 @@ bot.on(['/tokens'], function (msg) {
       console.log(error)
     })
 })
-
