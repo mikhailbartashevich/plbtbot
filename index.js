@@ -618,6 +618,7 @@ bot.on(['/tokens'], function (msg) {
   paralleldots
     .multilangKeywords(msg.text, 'ru')
     .then(response => {
+      bot.sendMessage(msg.chat.id, msg.text)
       bot.sendMessage(msg.chat.id, response)
     })
     .catch(error => {
