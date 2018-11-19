@@ -343,58 +343,64 @@ bot.on(['text'], function (msg) {
   if (text.indexOf('ебучие джуны') > -1 || text.indexOf('ебучий джун') > -1) {
     eJunior(id, msg)
   }
-})
+});
+
+function getDebtCost (cost) {
+  if (!cost) return 0
+  return parseFloat(cost, 10);
+}
 
 bot.on(['/split'], function (msg) {
-  const cost = Number(msg.text.split(' ')[1]) || 0
-  const description = msg.text.split(' ')[2] || 'SplitKot'
-  let splitUsers = []
-  if (msg.from.id == '281548620' || msg.from.id == '437814936') {
-    const users = {
-      m: { user_id: '6181181', owed_share: cost / 2 },
-      p: { user_id: '6181165', owed_share: cost / 2 }
-    }
-    const user = msg.from.id == '437814936' ? 'm' : 'p'
-    users[user].paid_share = cost
-    splitUsers = [users.m, users.p]
+  const arr = msg.text.split(' ');
+  arr.shift(); // command
+  const cost = getDebtCost(arr.shift());
+  const users = {
+    437814936: { user_id: '6181181', owed_share: cost / 2 },
+    281548620: { user_id: '6181165', owed_share: cost / 2 }
+  };
+  const foundUser = users[msg.from.id];
+  if (foundUser) {
+    foundUser.paid_share = cost;
+    splitwiseCreate(msg, [users[437814936], users[281548620]]);
   }
-  console.log(splitUsers)
-  splitwiseCreate(msg, splitUsers, cost, description)
-})
+});
 
 bot.on(['/debt'], function (msg) {
-  const cost = Number(msg.text.split(' ')[1]) || 0
-  const description = msg.text.split(' ')[2] || 'DebtKot'
-
-  let splitUsers = []
-  if (msg.from.id == '281548620' || msg.from.id == '437814936') {
-    const users = {
-      m: { user_id: '6181181', owed_share: cost },
-      p: { user_id: '6181165', owed_share: cost }
-    }
-    const user = msg.from.id == '437814936' ? 'm' : 'p'
-    users[user].paid_share = cost
-    delete users[user].owed_share
-    splitUsers = [users.m, users.p]
+  const arr = msg.text.split(' ');
+  arr.shift(); // command
+  const cost = getDebtCost(arr.shift());
+  const users = {
+    437814936: { user_id: '6181181', owed_share: cost },
+    281548620: { user_id: '6181165', owed_share: cost }
+  };
+  const foundUser = users[msg.from.id];
+  if (foundUser) {
+    foundUser.paid_share = cost;
+    foundUser.owed_share = 0;
+    splitwiseCreate(msg, [users[437814936], users[281548620]]);
   }
-  splitwiseCreate(msg, splitUsers, cost, description)
-})
+});
 
-const Splitwise = require('splitwise')
+const Splitwise = require('splitwise');
 const splitwiseAPI = Splitwise({
   consumerKey: 'CaTRJTDOXpcqK0iz5oBsE53kC6CrxWoIc9MtMZwV',
   consumerSecret: 'HXorLklyzQBnu8y7YBFb8Kt9lMp3yrzN9DIOLAWC'
-})
+});
 
-function splitwiseCreate (msg, users, cost, description) {
+function splitwiseCreate (msg, users) {
+  const arr = msg.text.split(' ');
+  arr.shift(); // command
+  const stringCost = arr.shift();
+  const cost = getDebtCost(stringCost);
+
   splitwiseAPI
     .createExpense({
       users,
       group_id: '5626964',
-      currency_code: 'PLN',
+      currency_code: stringCost.replace(cost, '').toUpperCase() || 'PLN',
       cost,
       payment: false,
-      description
+      description: arr.length ? arr.join(' ') : 'SplitKot'
     })
     .then(
       success => {
