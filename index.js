@@ -616,6 +616,7 @@ let multilangKeywords = function (text) {
     request.post(
       {
         url: 'http://apis.paralleldots.com/v3/multilang_keywords',
+        json: true,
         form: {
           text: text,
           lang_code: 'ru',
@@ -635,14 +636,13 @@ let multilangKeywords = function (text) {
 bot.on(['/tokens'], function (msg) {
   multilangKeywords(msg.text)
     .then(response => {
-      console.log(response)
       const confidentWords = response.keywords.filter(
         keyword => keyword.confidence_score >= 4
-      )
+      );
       bot.sendMessage(
         msg.chat.id,
         confidentWords.map(word => word.keyword).join(' ')
-      )
+      );
     })
     .catch(error => {
       console.log(error)
