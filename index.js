@@ -635,6 +635,7 @@ let multilangKeywords = function (text) {
 bot.on(['/tokens'], function (msg) {
   multilangKeywords(msg.text)
     .then(response => {
+      console.log(response)
       const confidentWords = response.keywords.filter(
         keyword => keyword.confidence_score >= 4
       )
