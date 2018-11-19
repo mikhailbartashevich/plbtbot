@@ -611,15 +611,14 @@ function processMessage (
   })
 }
 
-let multilangKeywords = function (text) {
+function multilangKeywords(text) {
   return new Promise((resolve, reject) => {
     request.post(
       {
-        url: 'http://apis.paralleldots.com/v3/multilang_keywords',
+        url: 'http://apis.paralleldots.com/v3/keywords',
         json: true,
         form: {
           text: text,
-          lang_code: 'ru',
           api_key: process.env.PARALLEL_DOTS_KEY
         }
       },
@@ -633,18 +632,42 @@ let multilangKeywords = function (text) {
   })
 }
 
+function translate(text) {
+  return new Promise((resolve, reject) => {
+    request.post(
+      {
+        url: `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ru&tl=en&dt=t&q=${encodeURI(text)}`,
+        json: true,
+        form: {
+          text: text,
+          api_key: process.env.PARALLEL_DOTS_KEY
+        }
+      },
+      function (err, httpResponse, body) {
+        if (err) {
+          reject({ Error: err })
+        }
+        resolve(body)
+      }
+    )
+  })
+}
+
+
+
 bot.on(['/tokens'], function (msg) {
   multilangKeywords(msg.text)
     .then(response => {
       const confidentWords = response.keywords.filter(
-        keyword => keyword.confidence_score >= 4
-      );
+        keyword => keyword.confidence_score > 0.85
+      )
       bot.sendMessage(
         msg.chat.id,
         confidentWords.map(word => word.keyword).join(' ')
-      );
+      )
     })
     .catch(error => {
       console.log(error)
     })
 })
+
