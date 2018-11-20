@@ -660,17 +660,21 @@ function translate (text) {
 
 function getImages (text) {
   return new Promise((resolve, reject) => {
-    request.get(
-      {
-        url: `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&q=${encodeURIComponent(text)}`,
-        json: true
-      },
-      function (err, httpResponse, body) {
-        if (err) {
-          reject({ Error: err })
-        }
-        resolve(body.hits)
-      }
+    setTimeout(
+      () =>
+        request.get(
+          {
+            url: `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&q=${encodeURIComponent(text)}`,
+            json: true
+          },
+          function (err, httpResponse, body) {
+            if (err) {
+              reject({ Error: err })
+            }
+            resolve(body.hits)
+          }
+        ),
+      1000
     )
   })
 }
