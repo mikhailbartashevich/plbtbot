@@ -682,33 +682,40 @@ bot.on(['/context-image'], function (msg) {
       console.log(response)
       const confidentWords = response.keywords
         ? response.keywords.filter(
-            keyword => keyword.confidence_score > 0.75 && keyword.keyword.length > 3
+            keyword =>
+              keyword.confidence_score > 0.75 && keyword.keyword.length > 3
           )
         : []
 
       if (confidentWords.length) {
-        const foundKeys = confidentWords.map(word => word.keyword).join(' ')
-        bot.sendMessage(msg.chat.id, foundKeys)
+        const foundKeys = confidentWords.map(word => word.keyword)
+        bot.sendMessage(msg.chat.id, foundKeys.join(' '))
         return foundKeys
       } else {
         bot.sendMessage(msg.chat.id, 'No confidence in keywords')
         return 'cat'
       }
     })
-    .then(text => getImages(text))
-    .then(hits => {
-      if (hits && hits[0]) {
-        bot
-          .sendPhoto(msg.chat.id, hits[0].webformatURL, {
-            fileName: 'contextImage.jpg',
-            serverDownload: true
-          })
-          .catch(console.log)
-      } else {
-        showKitty(msg.chat.id, '/kitty')
-      }
+    .then(foundKeys => Promise.all(foundKeys.map(text => getImages(text))))
+    .then(results => {
+      results.forEach(response => {
+        showFoundImage(msg.chat.id, response.hits)
+      })
     })
     .catch(error => {
       console.log(error)
     })
 })
+
+function showFoundImage (id, hits) {
+  if (hits && hits[0]) {
+    bot
+      .sendPhoto(id, hits[0].webformatURL, {
+        fileName: 'contextImage.jpg',
+        serverDownload: true
+      })
+      .catch(console.log)
+  } else {
+    showKitty(id, '/kitty')
+  }
+}
