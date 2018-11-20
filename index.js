@@ -626,6 +626,7 @@ function keywords (text) {
         if (err) {
           reject({ Error: err })
         }
+        console.log(body)
         resolve(body)
       }
     )
@@ -653,6 +654,7 @@ bot.on(['/tokens'], function (msg) {
   translate(msg.text)
     .then(text => keywords(text))
     .then(response => {
+      console.log(response)
       const confidentWords = response.keywords.filter(
         keyword => keyword.confidence_score > 0.85
       )
