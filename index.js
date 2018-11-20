@@ -618,7 +618,7 @@ function keywords (text) {
         url: 'http://apis.paralleldots.com/v3/keywords',
         json: true,
         form: {
-          text: text,
+          text,
           api_key: process.env.PARALLEL_DOTS_KEY
         }
       },
