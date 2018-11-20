@@ -643,8 +643,7 @@ function translate (text) {
         if (err) {
           reject({ Error: err })
         }
-        console.log(body)
-        resolve(body)
+        resolve(body.text);
       }
     )
   })
