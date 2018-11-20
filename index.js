@@ -682,7 +682,7 @@ bot.on(['/context-image'], function (msg) {
       console.log(response)
       const confidentWords = response.keywords
         ? response.keywords.filter(
-            keyword => keyword.confidence_score > 0.75 && keyword.length > 3
+            keyword => keyword.confidence_score > 0.75 && keyword.keyword.length > 3
           )
         : []
 
@@ -697,7 +697,7 @@ bot.on(['/context-image'], function (msg) {
     })
     .then(text => getImages(text))
     .then(hits => {
-      if (hits[0]) {
+      if (hits && hits[0]) {
         bot
           .sendPhoto(msg.chat.id, hits[0].webformatURL, {
             fileName: 'contextImage.jpg',
