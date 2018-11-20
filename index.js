@@ -632,11 +632,11 @@ function keywords (text) {
   })
 }
 
-function translate(text) {
+function translate (text) {
   return new Promise((resolve, reject) => {
     request.get(
       {
-        url: `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ru&tl=en&dt=t&q=${encodeURI(text)}`,
+        url: `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${process.env.YANDEX_API_KEY}&text=${encodeURIComponent(text)}&lang=ru-en`,
         json: true
       },
       function (err, httpResponse, body) {
