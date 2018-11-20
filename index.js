@@ -691,10 +691,12 @@ bot.on(['/context-image'], function (msg) {
           )
         : []
 
+      confidentWords.sort((a, b) => a.confidence_score - b.confidence_score)
+
       if (confidentWords.length) {
         const foundKeys = confidentWords.map(word => word.keyword)
         bot.sendMessage(msg.chat.id, foundKeys.join(' '))
-        return foundKeys
+        return foundKeys.slice(4)
       } else {
         bot.sendMessage(msg.chat.id, 'No confidence in keywords')
         return 'cat'
