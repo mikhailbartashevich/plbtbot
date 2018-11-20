@@ -613,6 +613,7 @@ function processMessage (
 
 function keywords (text) {
   return new Promise((resolve, reject) => {
+    console.log('teeeext' + text)
     request.post(
       {
         url: 'http://apis.paralleldots.com/v3/keywords',
@@ -642,6 +643,7 @@ function translate (text) {
       },
       function (err, httpResponse, body) {
         if (err) {
+          console.log('errrrr' + errr)
           reject({ Error: err })
         }
         resolve(body.text);
