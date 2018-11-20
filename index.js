@@ -687,7 +687,7 @@ bot.on(['/context-image'], function (msg) {
       const confidentWords = response.keywords
         ? response.keywords.filter(
             keyword =>
-              keyword.confidence_score > 0.93 && keyword.keyword.length > 3
+              keyword.confidence_score > 0.93
           )
         : []
 
