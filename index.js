@@ -691,7 +691,7 @@ bot.on(['/context-image'], function (msg) {
           )
         : []
 
-      confidentWords.sort((a, b) => a.confidence_score - b.confidence_score)
+      confidentWords.sort((a, b) => b.confidence_score - a.confidence_score)
 
       if (confidentWords.length) {
         const foundKeys = confidentWords.map(word => word.keyword)
