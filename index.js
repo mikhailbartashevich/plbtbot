@@ -611,15 +611,15 @@ function processMessage (
   })
 }
 
-function keywords (text) {
+function keywords(text) {
   return new Promise((resolve, reject) => {
-    console.log('teeeext' + text)
+    console.log('keee' + process.env.PARALLEL_DOTS_KEY);
     request.post(
       {
         url: 'http://apis.paralleldots.com/v3/keywords',
         json: true,
         form: {
-          text,
+          text: 'test text for test',
           api_key: process.env.PARALLEL_DOTS_KEY
         }
       },
@@ -643,7 +643,6 @@ function translate (text) {
       },
       function (err, httpResponse, body) {
         if (err) {
-          console.log('errrrr' + errr)
           reject({ Error: err })
         }
         resolve(body.text);
