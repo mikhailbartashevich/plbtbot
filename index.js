@@ -21,7 +21,7 @@ let intervalTime = 0
 
 // Command keyboard
 const replyMarkup = bot.keyboard(
-  [['/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/fiat']],
+  [['/context-image', '/kitty', '/kittygif', '/plbt', '/xrp', '/btc', '/fiat']],
   { resize: true, once: false }
 )
 
@@ -29,7 +29,7 @@ const replyMarkup = bot.keyboard(
 bot.on(['/start', '/help'], function (msg) {
   return bot.sendMessage(
     msg.chat.id,
-    '😺 Use commands: /kitty, /kittygif, /plbt, /xrp, /btc, /fiat usd_pln pair, and /price crypto',
+    '😺 Use commands: /context-image /kitty, /kittygif, /plbt, /xrp, /btc, /fiat usd_pln pair, and /price crypto',
     { replyMarkup }
   )
 })
@@ -325,9 +325,17 @@ bot.on(['/awards'], function (msg) {
   )
 })
 
+let collectedMessages = []
+
 bot.on(['text'], function (msg) {
   const id = msg.chat.id
   const text = msg.text.toLowerCase()
+  collectedMessages.push(text)
+
+  if (collectedMessages.length > process.env.MESSAGES_COUNTER) {
+    collectedMessages.shift()
+  }
+
   if (text.indexOf('запомните этот твит') > -1) {
     rememberTweet(id, msg)
   }
@@ -650,22 +658,54 @@ function translate (text) {
   })
 }
 
-bot.on(['/tokens'], function (msg) {
-  translate(msg.text)
+function getImages (text) {
+  return new Promise((resolve, reject) => {
+    request.get(
+      {
+        url: `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&q=${encodeURIComponent(text)}`,
+        json: true
+      },
+      function (err, httpResponse, body) {
+        if (err) {
+          reject({ Error: err })
+        }
+        resolve(body.hits)
+      }
+    )
+  })
+}
+
+bot.on(['/context-image'], function (msg) {
+  translate(collectedMessages.join(' '))
     .then(text => keywords(text))
     .then(response => {
       console.log(response)
-      const confidentWords = response.keywords.filter(
-        keyword => keyword.confidence_score > 0.85
-      )
+      const confidentWords = response.keywords
+        ? response.keywords.filter(
+            keyword => keyword.confidence_score > 0.75 && keyword.length > 3
+          )
+        : []
 
       if (confidentWords.length) {
-        bot.sendMessage(
-          msg.chat.id,
-          confidentWords.map(word => word.keyword).join(' ')
-        )
+        const foundKeys = confidentWords.map(word => word.keyword).join(' ')
+        bot.sendMessage(msg.chat.id, foundKeys)
+        return foundKeys
       } else {
-        bot.sendMessage(msg.chat.id, 'No tokens')
+        bot.sendMessage(msg.chat.id, 'No confidence in keywords')
+        return 'cat'
+      }
+    })
+    .then(text => getImages(text))
+    .then(hits => {
+      if (hits[0]) {
+        bot
+          .sendPhoto(msg.chat.id, hits[0].webformatURL, {
+            fileName: 'contextImage.jpg',
+            serverDownload: true
+          })
+          .catch(console.log)
+      } else {
+        showKitty(msg.chat.id, '/kitty')
       }
     })
     .catch(error => {
