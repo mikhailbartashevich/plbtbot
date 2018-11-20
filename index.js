@@ -699,6 +699,7 @@ bot.on(['/context-image'], function (msg) {
     .then(foundKeys => Promise.all(foundKeys.map(text => getImages(text))))
     .then(results => {
       results.forEach(response => {
+        console.log(response)
         showFoundImage(msg.chat.id, response.hits)
       })
     })
@@ -708,7 +709,6 @@ bot.on(['/context-image'], function (msg) {
 })
 
 function showFoundImage (id, hits) {
-  console.log(hits)
   if (hits && hits[0]) {
     bot
       .sendPhoto(id, hits[0].webformatURL, {
@@ -717,6 +717,6 @@ function showFoundImage (id, hits) {
       })
       .catch(console.log)
   } else {
-    showKitty(msg.chat.id, '/kitty')
+    showKitty(id, '/kitty')
   }
 }
