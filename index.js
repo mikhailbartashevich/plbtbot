@@ -699,8 +699,7 @@ bot.on(['/context-image'], function (msg) {
     .then(foundKeys => Promise.all(foundKeys.map(text => getImages(text))))
     .then(results => {
       results.forEach(response => {
-        console.log(response)
-        showFoundImage(msg.chat.id, response.hits)
+        showFoundImage(msg.chat.id, response)
       })
     })
     .catch(error => {
