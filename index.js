@@ -611,15 +611,14 @@ function processMessage (
   })
 }
 
-function keywords(text) {
+function keywords (translatedText) {
   return new Promise((resolve, reject) => {
-    console.log('keee' + process.env.PARALLEL_DOTS_KEY);
     request.post(
       {
         url: 'http://apis.paralleldots.com/v3/keywords',
         json: true,
         form: {
-          text: 'test text for test',
+          text: translatedText.toString(),
           api_key: process.env.PARALLEL_DOTS_KEY
         }
       },
@@ -645,7 +644,7 @@ function translate (text) {
         if (err) {
           reject({ Error: err })
         }
-        resolve(body.text);
+        resolve(body.text)
       }
     )
   })
@@ -659,10 +658,15 @@ bot.on(['/tokens'], function (msg) {
       const confidentWords = response.keywords.filter(
         keyword => keyword.confidence_score > 0.85
       )
-      bot.sendMessage(
-        msg.chat.id,
-        confidentWords.map(word => word.keyword).join(' ')
-      )
+
+      if (confidentWords.length) {
+        bot.sendMessage(
+          msg.chat.id,
+          confidentWords.map(word => word.keyword).join(' ')
+        )
+      } else {
+        bot.sendMessage(msg.chat.id, 'No tokens')
+      }
     })
     .catch(error => {
       console.log(error)
