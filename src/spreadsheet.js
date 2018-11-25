@@ -9,7 +9,7 @@ const SCOPES = [
   'https://www.googleapis.com/auth/spreadsheets'
 ]
 
-const TOKEN_PATH = 'token.json'
+const TOKEN_PATH = '../token.json'
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the

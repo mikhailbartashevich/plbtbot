@@ -2,6 +2,8 @@ const fs = require('fs')
 const tweets = require('./tweets')
 const spreadsheet = require('./spreadsheet')
 
+const CREDENTIALS_PATH = '../credentials.json';
+
 const FACE_PALM_IMG =
   'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Paris_Tuileries_Garden_Facepalm_statue.jpg/300px-Paris_Tuileries_Garden_Facepalm_statue.jpg'
 
@@ -47,14 +49,14 @@ function processTweets (auth, { msg, teleBot }) {
 
 // public
 function eJunior (msg, teleBot) {
-  fs.readFile('credentials.json', (err, content) => {
+  fs.readFile(CREDENTIALS_PATH, (err, content) => {
     if (err) return console.log('Error loading client secret file:', err)
     spreadsheet.authorize(JSON.parse(content), processEJunior, { msg, teleBot })
   })
 }
 
 function kartoshkaJoke (msg, teleBot) {
-  fs.readFile('credentials.json', (err, content) => {
+  fs.readFile(CREDENTIALS_PATH, (err, content) => {
     if (err) return console.log('Error loading client secret file:', err)
     spreadsheet.authorize(JSON.parse(content), processKartoshkaJoke, {
       msg,
@@ -64,7 +66,7 @@ function kartoshkaJoke (msg, teleBot) {
 }
 
 function rememberTweet (msg, teleBot) {
-  fs.readFile('credentials.json', (err, content) => {
+  fs.readFile(CREDENTIALS_PATH, (err, content) => {
     if (err) return console.log('Error loading client secret file:', err)
     spreadsheet.authorize(JSON.parse(content), processTweets, { msg, teleBot })
   })
