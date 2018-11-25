@@ -13,11 +13,12 @@ const LUKA_IMG =
 
 function processEJunior (auth, { msg, teleBot }) {
   const callbackMessage = 'Опять ебучий джун?'
+  const id = msg.chat.id
   tweets
     .appendTweet(auth, msg, 'C:C')
     .then(() => tweets.updateTotal(auth, 'C2'))
     .then(total => {
-      teleBot.sendPhoto(msg.chat.id, FACE_PALM_IMG, {
+      teleBot.sendPhoto(id, FACE_PALM_IMG, {
         fileName: 'image.jpg',
         serverDownload: true
       })
@@ -27,11 +28,12 @@ function processEJunior (auth, { msg, teleBot }) {
 
 function processKartoshkaJoke (auth, { msg, teleBot }) {
   const callbackMessage = 'Что это, еще одна бульба-шутка?'
+  const id = msg.chat.id
   tweets
     .appendTweet(auth, msg, 'B:B')
     .then(() => tweets.updateTotal(auth, 'B2'))
     .then(total => {
-      teleBot.sendPhoto(msg.chat.id, LUKA_IMG, {
+      teleBot.sendPhoto(id, LUKA_IMG, {
         fileName: 'image.jpg',
         serverDownload: true
       })
