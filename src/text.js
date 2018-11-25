@@ -2,7 +2,7 @@ const jokes = require('./jokes')
 
 const BULBA_ROOTS = ['картош', 'картоф', 'бульб', 'картох', 'картоп']
 
-function updateMessages (messages) {
+function updateMessages (messages, text) {
   messages.push(text)
   if (messages.length > process.env.MESSAGES_COUNTER) {
     messages.shift()
@@ -11,7 +11,7 @@ function updateMessages (messages) {
 
 function textProcessing (msg, teleBot, collectedMessages) {
   const text = msg.text.toLowerCase()
-  updateMessages(collectedMessages)
+  updateMessages(collectedMessages, text)
 
   if (text.indexOf('запомните этот твит') > -1) {
     jokes.rememberTweet(msg, teleBot)
