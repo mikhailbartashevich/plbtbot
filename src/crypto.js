@@ -48,14 +48,14 @@ function getCryptoMessage (price, terminator) {
   return `The price is ${price}. Seriously ?! 😿 Here is a kitty for the team.`
 }
 
-function getCryptoChatPhoto (price) {
+function getCryptoChatPhoto (price, terminator) {
   if (price > terminator) {
     return 'https://www.outerplaces.com/media/k2/items/cache/7db160bf373b0765b084bfc22d0899cc_L.jpg'
   }
   return 'https://cdn.pixabay.com/photo/2017/11/19/13/03/panorama-2962730_960_720.jpg'
 }
 
-function getCryptoChatTitle (price) {
+function getCryptoChatTitle (price, terminator) {
   if (price > terminator) {
     return 'КТИ'
   }
@@ -111,7 +111,7 @@ function getPlbtMessage (price, terminator) {
   return `The price is ${price}. 😿 Here is a kitty for Yura.`
 }
 
-function getPlbtChatTitle (price) {
+function getPlbtChatTitle (price, terminator) {
   if (price > terminator) {
     return 'ГКТИиЮ'
   }
