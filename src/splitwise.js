@@ -5,6 +5,7 @@ const splitwiseAPI = Splitwise({
   consumerKey: process.env.SPLITWISE_CONSUMER_KEY,
   consumerSecret: process.env.SPLITWISE_SECRET
 })
+
 function getDebtCost (cost) {
   if (!cost) return 0
   return parseFloat(cost, 10)

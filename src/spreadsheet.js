@@ -44,7 +44,7 @@ function authorize (credentials, callback, data) {
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
-export function getNewToken (oAuth2Client, callback) {
+function getNewToken (oAuth2Client, callback) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES
