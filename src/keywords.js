@@ -16,7 +16,6 @@ function keywords (translatedText) {
         if (err) {
           reject({ Error: err })
         }
-        console.log(body)
         resolve(body)
       }
     )
@@ -79,7 +78,7 @@ function publishKeywords (msg, teleBot, collectedMessages) {
     .then(text => keywords(text))
     .then(response => {
       console.log(response)
-      const confidentWords = response.keywords
+      const confidentWords = response.keywords && response.keywords.filter
         ? response.keywords.filter(keyword => keyword.confidence_score > 0.93)
         : []
 

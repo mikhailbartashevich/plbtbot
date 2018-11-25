@@ -1,4 +1,5 @@
 const readline = require('readline')
+const path = require('path')
 const { google } = require('googleapis')
 const fs = require('fs')
 
@@ -26,7 +27,7 @@ function authorize (credentials, callback, data) {
   )
 
   // Check if we have previously stored a token.
-  fs.readFile(TOKEN_PATH, (err, token) => {
+  fs.readFile(path.resolve(__dirname, TOKEN_PATH), (err, token) => {
     if (err) return getNewToken(oAuth2Client, callback)
     try {
       JSON.parse(token)
@@ -62,10 +63,14 @@ function getNewToken (oAuth2Client, callback) {
       }
       oAuth2Client.setCredentials(token)
       // Store the token to disk for later program executions
-      fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
-        if (err) console.error(err)
-        console.log('Token stored to', TOKEN_PATH)
-      })
+      fs.writeFile(
+        path.resolve(__dirname, TOKEN_PATH),
+        JSON.stringify(token),
+        err => {
+          if (err) console.error(err)
+          console.log('Token stored to', path.resolve(__dirname, TOKEN_PATH))
+        }
+      )
       callback(oAuth2Client)
     })
   })
