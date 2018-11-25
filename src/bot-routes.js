@@ -1,6 +1,7 @@
 const text = require('./text')
 const kitty = require('./kitty')
 const crypto = require('./crypto')
+const fiat = require('./fiat')
 const splitwise = require('./splitwise')
 const movies = require('./movies')
 const keywords = require('./keywords')
@@ -57,6 +58,8 @@ function initRoutes (teleBot) {
   initKittyRoutes(teleBot)
 
   initCryptoRoutes(teleBot)
+
+  teleBot.on(['/fiat'], msg => fiat.publishFiat(msg, teleBot))
 
   initSplitwiseRoutes(teleBot)
 

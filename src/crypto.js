@@ -45,7 +45,7 @@ function getCryptoMessage (price, terminator) {
   if (price > terminator) {
     return `The price is ${price}. No Kitty enjoy money. To the moon!`
   }
-  return `Seriously ?! 😿 Here is a kitty for the team.`
+  return `The price is ${price}. Seriously ?! 😿 Here is a kitty for the team.`
 }
 
 function getCryptoChatPhoto (price) {
@@ -79,14 +79,14 @@ function publishBtcPrice (msg, teleBot) {
         .showKitty(msg, teleBot)
         .catch(error => console.log('[error]', error))
     })
-    .catch(_ => teleBot.sendMessage(id, `Crypto not found.`))
+    .catch(error => console.log('[error]', error))
 }
 
 function getXrpMessage (price, terminator) {
   if (price > terminator) {
     return `The price is ${price}. No Kitty enjoy money. To the moon!`
   }
-  return `😿 Here is a kitty for Gore Traders.`
+  return `The price is ${price}. 😿 Here is a kitty for Gore Traders.`
 }
 
 function publishXrpPrice (msg, teleBot) {
@@ -101,14 +101,14 @@ function publishXrpPrice (msg, teleBot) {
         .showKitty(msg, teleBot)
         .catch(error => console.log('[error]', error))
     })
-    .catch(_ => teleBot.sendMessage(id, `Crypto not found.`))
+    .catch(error => console.log('[error]', error))
 }
 
 function getPlbtMessage (price, terminator) {
   if (price > terminator) {
     return `The price is ${price}. No Kitty enjoy money. Yura is a rich man!`
   }
-  return `😿 Here is a kitty for Yura.`
+  return `The price is ${price}. 😿 Here is a kitty for Yura.`
 }
 
 function getPlbtChatTitle (price) {
@@ -130,7 +130,7 @@ function publishPlbtPrice (msg, teleBot) {
         .showKitty(msg, teleBot)
         .catch(error => console.log('[error]', error))
     })
-    .catch(_ => teleBot.sendMessage(id, `Crypto not found.`))
+    .catch(error => console.log('[error]', error))
 }
 
 module.exports = {

@@ -10,7 +10,7 @@ function showKitty (msg, teleBot) {
   return promise
 }
 
-function showKittyGiff () {
+function showKittyGiff (msg, teleBot) {
   const id = msg.chat.id
   const promise = bot.sendDocument(id, API + 'gif#', {
     fileName: 'kitty.gif',
