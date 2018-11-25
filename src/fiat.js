@@ -1,7 +1,7 @@
 const request = require('request')
 const kitty = require('./kitty')
 
-function getFiatPrice (id, pair) {
+function getFiatPrice (pair) {
   return new Promise((resolve, reject) => {
     request(
       {
@@ -20,7 +20,7 @@ function getFiatPrice (id, pair) {
 
 function publishFiat (msg, teleBot) {
   const pair = msg.text.split(' ')[1] || 'usd_pln'
-  getFiatPrice(id, pair)
+  getFiatPrice(pair)
     .then(price => {
       let message = `The price is ${price}.`
 
