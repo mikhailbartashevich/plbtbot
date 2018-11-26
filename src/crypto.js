@@ -72,7 +72,7 @@ function publishBtcPrice (msg, teleBot) {
           serverDownload: true
         })
         .catch(error => console.log('[error]', error))
-      if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+      if (msg.chat.id == process.env.JOKES_CHAT_ID) {
         teleBot
           .setChatTitle(id, getCryptoChatTitle(price, 10000))
           .catch(error => console.log('Error:', error))
@@ -107,7 +107,7 @@ function publishXrpPrice (msg, teleBot) {
 }
 
 function getPlbtMessage (price, terminator, msg) {
-  if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+  if (msg.chat.id == process.env.JOKES_CHAT_ID) {
     if (price > terminator) {
       return `The price is ${price}. No Kitty enjoy money. Yura is a rich man!`
     }
@@ -128,7 +128,7 @@ function publishPlbtPrice (msg, teleBot) {
   getCryptoPrice({ id: 1784 })
     .then(price => {
       teleBot.sendMessage(id, getPlbtMessage(price, 4, msg))
-      if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+      if (msg.chat.id == process.env.JOKES_CHAT_ID) {
         teleBot
           .setChatTitle(id, getPlbtChatTitle(price, 4))
           .catch(error => console.log('Error:', error))

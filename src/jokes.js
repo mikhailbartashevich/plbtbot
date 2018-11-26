@@ -58,20 +58,20 @@ const CREDENTIALS = {
 
 // public
 function eJunior (msg, teleBot) {
-  if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+  if (msg.chat.id == process.env.JOKES_CHAT_ID) {
     spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
   }
 }
 
 function kartoshkaJoke (msg, teleBot) {
   console.log(msg.chat.id)
-  if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+  if (msg.chat.id == process.env.JOKES_CHAT_ID) {
     spreadsheet.authorize(CREDENTIALS, processKartoshkaJoke, { msg, teleBot })
   }
 }
 
 function rememberTweet (msg, teleBot) {
-  if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+  if (msg.chat.id == process.env.JOKES_CHAT_ID) {
     spreadsheet.authorize(CREDENTIALS, processTweets, { msg, teleBot })
   }
 }
