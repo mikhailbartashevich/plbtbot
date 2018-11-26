@@ -12,11 +12,11 @@ function sendMovies (id, movies, i, teleBot) {
         })
       )
       .then(_ => {
-        sendMovies(id, movies, i + 1)
+        sendMovies(id, movies, i + 1, teleBot)
       })
       .catch(_ => {
         console.log(_)
-        sendMovies(id, movies, i + 1)
+        sendMovies(id, movies, i + 1, teleBot)
       })
   }
 }
