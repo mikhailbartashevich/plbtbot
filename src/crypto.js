@@ -123,9 +123,11 @@ function publishPlbtPrice (msg, teleBot) {
   getCryptoPrice({ id: 1784 })
     .then(price => {
       teleBot.sendMessage(id, getPlbtMessage(price, 4))
-      teleBot
-        .setChatTitle(id, getPlbtChatTitle(price, 4))
-        .catch(error => console.log('Error:', error))
+      if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+        teleBot
+          .setChatTitle(id, getPlbtChatTitle(price, 4))
+          .catch(error => console.log('Error:', error))
+      }
       kitty
         .showKitty(msg, teleBot)
         .catch(error => console.log('[error]', error))
