@@ -1,5 +1,5 @@
 {
-  "name": "PolybiusBot",
+  "name": "polybiusbot",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
@@ -16,5 +16,6 @@
   },
   "author": "Mikhail Bartashevich",
   "license": "ISC",
-  "description": "Telegram Bot"
+  "description": "Telegram Bot @PolybiusBot"
 }
+x
