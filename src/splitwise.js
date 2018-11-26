@@ -51,9 +51,9 @@ function addSplit (msg, teleBot) {
   arr.shift() // command
   const cost = getDebtCost(arr.shift())
   const users = USERS
-  const half = cost / 2
-  users[437814936].owed_share = half.toFixed(2)
-  users[281548620].owed_share = half.toFixed(2)
+  const half = Number((cost / 2).toFixed(2))
+  users[437814936].owed_share = half
+  users[281548620].owed_share = half
   const foundUser = users[msg.from.id]
   if (foundUser) {
     foundUser.paid_share = cost
