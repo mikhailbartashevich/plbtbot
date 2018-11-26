@@ -67,12 +67,12 @@ function publishBtcPrice (msg, teleBot) {
   getCryptoPrice({ id: 1 })
     .then(price => {
       teleBot.sendMessage(id, getCryptoMessage(price, 8000))
-      teleBot
-        .setChatPhoto(id, getCryptoChatPhoto(price, 8000), {
-          serverDownload: true
-        })
-        .catch(error => console.log('[error]', error))
       if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+        teleBot
+          .setChatPhoto(id, getCryptoChatPhoto(price, 8000), {
+            serverDownload: true
+          })
+          .catch(error => console.log('[error]', error))
         teleBot
           .setChatTitle(id, getCryptoChatTitle(price, 10000))
           .catch(error => console.log('Error:', error))
