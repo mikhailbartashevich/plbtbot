@@ -96,9 +96,11 @@ function publishXrpPrice (msg, teleBot) {
   getCryptoPrice({ id: 52 })
     .then(price => {
       teleBot.sendMessage(id, getXrpMessage(price.toFixed(2), 1.5))
-      teleBot
-        .setChatTitle(id, getCryptoChatTitle(price, 1.5))
-        .catch(error => console.log('Error:', error))
+      if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+        teleBot
+          .setChatTitle(id, getCryptoChatTitle(price, 1.5))
+          .catch(error => console.log('Error:', error))
+      }
       kitty
         .showKitty(msg, teleBot)
         .catch(error => console.log('[error]', error))
