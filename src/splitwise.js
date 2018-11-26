@@ -6,6 +6,11 @@ const splitwiseAPI = Splitwise({
   consumerSecret: process.env.SPLITWISE_SECRET
 })
 
+const USERS = {
+  437814936: { user_id: '6181181' },
+  281548620: { user_id: '6181165' }
+}
+
 function getDebtCost (cost) {
   if (!cost) return 0
   return parseFloat(cost, 10)
@@ -27,28 +32,32 @@ function splitwiseCreate (msg, users) {
   })
 }
 
+function sendRequest (msg, users, teleBot) {
+  splitwiseCreate(msg, [users[437814936], users[281548620]]).then(
+    success => {
+      teleBot.sendMessage(msg.chat.id, 'Expense added')
+      kitty
+        .showKitty(msg, teleBot)
+        .catch(error => console.log('[error]', error))
+    },
+    err => {
+      teleBot.sendMessage(msg.chat.id, 'Expense error')
+    }
+  )
+}
+
 function addSplit (msg, teleBot) {
   const arr = msg.text.split(' ')
   arr.shift() // command
   const cost = getDebtCost(arr.shift())
-  const users = {
-    437814936: { user_id: '6181181', owed_share: cost / 2 },
-    281548620: { user_id: '6181165', owed_share: cost / 2 }
-  }
+  const users = USERS
+  const half = cost / 2
+  users[437814936].owed_share = half.toFixed(2)
+  users[281548620].owed_share = half.toFixed(2)
   const foundUser = users[msg.from.id]
   if (foundUser) {
     foundUser.paid_share = cost
-    splitwiseCreate(msg, [users[437814936], users[281548620]]).then(
-      success => {
-        teleBot.sendMessage(msg.chat.id, 'Expense added')
-        kitty
-          .showKitty(msg, teleBot)
-          .catch(error => console.log('[error]', error))
-      },
-      err => {
-        teleBot.sendMessage(msg.chat.id, 'Expense error')
-      }
-    )
+    sendRequest(msg, users, teleBot)
   }
 }
 
@@ -56,25 +65,14 @@ function addDebt (msg, teleBot) {
   const arr = msg.text.split(' ')
   arr.shift() // command
   const cost = getDebtCost(arr.shift())
-  const users = {
-    437814936: { user_id: '6181181', owed_share: cost },
-    281548620: { user_id: '6181165', owed_share: cost }
-  }
+  const users = USERS
+  users[437814936].owed_share = cost
+  users[281548620].owed_share = cost
   const foundUser = users[msg.from.id]
   if (foundUser) {
     foundUser.paid_share = cost
     foundUser.owed_share = 0
-    splitwiseCreate(msg, [users[437814936], users[281548620]]).then(
-      success => {
-        teleBot.sendMessage(msg.chat.id, 'Expense added')
-        kitty
-          .showKitty(msg, teleBot)
-          .catch(error => console.log('[error]', error))
-      },
-      err => {
-        teleBot.sendMessage(msg.chat.id, 'Expense error')
-      }
-    )
+    sendRequest(msg, users, teleBot)
   }
 }
 
