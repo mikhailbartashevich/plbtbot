@@ -13,7 +13,9 @@ const COMMANDS = [
   '/plbt',
   '/xrp',
   '/btc',
-  '/fiat'
+  '/fiat',
+  '/movies',
+  '/awards'
 ]
 
 const COLLECTED_MESSAGES = []
@@ -25,7 +27,7 @@ function helpMarkup (msg, teleBot) {
   })
   return teleBot.sendMessage(
     msg.chat.id,
-    '😺 Use commands:' + COMMANDS.join(' ') + 'usd_pln pair, and /price crypto',
+    '😺 Use commands:' + COMMANDS.join(' ') + '/fiat usd_pln, /price crypto, /movies name, /awards name',
     { replyMarkup }
   )
 }

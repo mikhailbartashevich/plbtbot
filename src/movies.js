@@ -1,9 +1,9 @@
 const request = require('request')
 
-function sendMovies (id, movies, i) {
+function sendMovies (id, movies, i, teleBot) {
   const movie = movies[i]
   if (movie) {
-    bot
+    teleBot
       .sendMessage(id, `${movie.Title} ${movie.Year}`)
       .then(_ =>
         bot.sendPhoto(id, movie.Poster, {
@@ -66,7 +66,7 @@ function searchMovies (msg, teleBot) {
     function (err, res, json) {
       const movies = json.Search || []
       teleBot.sendMessage(id, 'Found Movies:').then(_ => {
-        sendMovies(id, movies, 0)
+        sendMovies(id, movies, 0, teleBot)
       })
     }
   )
