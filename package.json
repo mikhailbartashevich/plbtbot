@@ -1,5 +1,5 @@
 {
-  "name": "plbot",
+  "name": "PolybiusBot",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
@@ -7,7 +7,6 @@
     "http": "0.0.0",
     "newrelic": "^4.1.0",
     "nodemon": "^1.9.2",
-    "paralleldots": "^3.2.2",
     "request": "^2.85.0",
     "splitwise": "^1.0.0",
     "telebot": "^1.2.6"
@@ -15,7 +14,7 @@
   "scripts": {
     "start": "nodemon index.js"
   },
-  "author": "",
+  "author": "Mikhail Bartashevich",
   "license": "ISC",
-  "description": ""
+  "description": "Telegram Bot"
 }
