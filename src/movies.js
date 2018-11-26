@@ -6,7 +6,7 @@ function sendMovies (id, movies, i, teleBot) {
     teleBot
       .sendMessage(id, `${movie.Title} ${movie.Year}`)
       .then(_ =>
-        bot.sendPhoto(id, movie.Poster, {
+        teleBot.sendPhoto(id, movie.Poster, {
           fileName: 'image.jpg',
           serverDownload: true
         })
