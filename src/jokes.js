@@ -50,29 +50,23 @@ function processTweets (auth, { msg, teleBot }) {
   })
 }
 
+const CREDENTIALS = {
+  client_id: process.env.PANTHEON_CLIENT_ID,
+  client_secret: process.env.PANTHEON_CLIENT_SECRET,
+  redirect_uris: ['https://plbtbot.herokuapp.com/oauth2callback']
+}
+
 // public
 function eJunior (msg, teleBot) {
-  fs.readFile(path.resolve(__dirname, CREDENTIALS_PATH), (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err)
-    spreadsheet.authorize(JSON.parse(content), processEJunior, { msg, teleBot })
-  })
+  spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
 }
 
 function kartoshkaJoke (msg, teleBot) {
-  fs.readFile(path.resolve(__dirname, CREDENTIALS_PATH), (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err)
-    spreadsheet.authorize(JSON.parse(content), processKartoshkaJoke, {
-      msg,
-      teleBot
-    })
-  })
+  spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
 }
 
 function rememberTweet (msg, teleBot) {
-  fs.readFile(path.resolve(__dirname, CREDENTIALS_PATH), (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err)
-    spreadsheet.authorize(JSON.parse(content), processTweets, { msg, teleBot })
-  })
+  spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
 }
 
 module.exports = {
