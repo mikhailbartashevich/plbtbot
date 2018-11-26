@@ -7,8 +7,8 @@ const splitwiseAPI = Splitwise({
 })
 
 const USERS = {
-  437814936: { user_id: '6181181' },
-  281548620: { user_id: '6181165' }
+  437814936: { user_id: process.env.SPLIT_USER_437814936 },
+  281548620: { user_id: process.env.SPLIT_USER_281548620 }
 }
 
 function getDebtCost (cost) {
