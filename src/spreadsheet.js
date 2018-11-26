@@ -6,11 +6,17 @@ const fs = require('fs')
 // If modifying these scopes, delete token.json.
 const SCOPES = [
   'https://www.googleapis.com/auth/drive',
+  'https://www.googleapis.com/auth/spreadsheets',
   'https://www.googleapis.com/auth/drive.file',
-  'https://www.googleapis.com/auth/spreadsheets'
 ]
 
-const TOKEN_PATH = '../token.json'
+const TOKEN = {
+  access_token: process.env.SPREADSHEET_ACCESS_TOKEN,
+  token_type: "Bearer",
+  refresh_token: SPREADSHEET_REFRESH_TOKEN,
+  scope: SCOPES.join(' '),
+  expiry_date: 1534498917009
+}
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -25,18 +31,8 @@ function authorize (credentials, callback, data) {
     client_secret,
     redirect_uris[0]
   )
-
-  // Check if we have previously stored a token.
-  fs.readFile(path.resolve(__dirname, TOKEN_PATH), (err, token) => {
-    if (err) return getNewToken(oAuth2Client, callback)
-    try {
-      JSON.parse(token)
-    } catch (errr) {
-      return getNewToken(oAuth2Client, callback)
-    }
-    oAuth2Client.setCredentials(JSON.parse(token))
-    callback(oAuth2Client, data)
-  })
+  oAuth2Client.setCredentials(TOKEN)
+  callback(oAuth2Client, data)
 }
 
 /**
