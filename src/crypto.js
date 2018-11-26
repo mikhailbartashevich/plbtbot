@@ -37,7 +37,7 @@ function publishCryptoPrice (msg, teleBot) {
   const id = msg.chat.id
   getCryptoInfo(crypto)
     .then(info => getCryptoPrice(info))
-    .then(price => teleBot.sendMessage(id, `The price is ${price}.`))
+    .then(price => teleBot.sendMessage(id, `The price is ${price.toFixed(2)}.`))
     .catch(_ => teleBot.sendMessage(id, `Crypto is not found.`))
 }
 
@@ -66,7 +66,7 @@ function publishBtcPrice (msg, teleBot) {
   const id = msg.chat.id
   getCryptoPrice({ id: 1 })
     .then(price => {
-      teleBot.sendMessage(id, getCryptoMessage(price, 8000))
+      teleBot.sendMessage(id, getCryptoMessage(price.toFixed(2), 8000))
       if (msg.chat.id == process.env.JOKES_CHAT_ID) {
         teleBot
           .setChatPhoto(id, getCryptoChatPhoto(price, 8000), {
@@ -95,7 +95,7 @@ function publishXrpPrice (msg, teleBot) {
   const id = msg.chat.id
   getCryptoPrice({ id: 52 })
     .then(price => {
-      teleBot.sendMessage(id, getXrpMessage(price, 1.5))
+      teleBot.sendMessage(id, getXrpMessage(price.toFixed(2), 1.5))
       teleBot
         .setChatTitle(id, getCryptoChatTitle(price, 1.5))
         .catch(error => console.log('Error:', error))
@@ -127,7 +127,7 @@ function publishPlbtPrice (msg, teleBot) {
   const id = msg.chat.id
   getCryptoPrice({ id: 1784 })
     .then(price => {
-      teleBot.sendMessage(id, getPlbtMessage(price, 4, msg))
+      teleBot.sendMessage(id, getPlbtMessage(price.toFixed(2), 4, msg))
       if (msg.chat.id == process.env.JOKES_CHAT_ID) {
         teleBot
           .setChatTitle(id, getPlbtChatTitle(price, 4))
