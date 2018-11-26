@@ -58,15 +58,22 @@ const CREDENTIALS = {
 
 // public
 function eJunior (msg, teleBot) {
-  spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
+  if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+    spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
+  }
 }
 
 function kartoshkaJoke (msg, teleBot) {
-  spreadsheet.authorize(CREDENTIALS, processKartoshkaJoke, { msg, teleBot })
+  console.log(msg.chat.id)
+  if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+    spreadsheet.authorize(CREDENTIALS, processKartoshkaJoke, { msg, teleBot })
+  }
 }
 
 function rememberTweet (msg, teleBot) {
-  spreadsheet.authorize(CREDENTIALS, processTweets, { msg, teleBot })
+  if (msg.chat.id === process.env.JOKES_CHAT_ID) {
+    spreadsheet.authorize(CREDENTIALS, processTweets, { msg, teleBot })
+  }
 }
 
 module.exports = {
