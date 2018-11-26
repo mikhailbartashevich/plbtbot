@@ -62,11 +62,11 @@ function eJunior (msg, teleBot) {
 }
 
 function kartoshkaJoke (msg, teleBot) {
-  spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
+  spreadsheet.authorize(CREDENTIALS, processKartoshkaJoke, { msg, teleBot })
 }
 
 function rememberTweet (msg, teleBot) {
-  spreadsheet.authorize(CREDENTIALS, processEJunior, { msg, teleBot })
+  spreadsheet.authorize(CREDENTIALS, processTweets, { msg, teleBot })
 }
 
 module.exports = {
