@@ -12,11 +12,11 @@ function showKitty (msg, teleBot) {
 
 function showKittyGiff (msg, teleBot) {
   const id = msg.chat.id
-  const promise = bot.sendDocument(id, API + 'gif#', {
+  const promise = teleBot.sendDocument(id, API + 'gif#', {
     fileName: 'kitty.gif',
     serverDownload: true
   })
-  bot.sendAction(id, 'upload_photo')
+  teleBot.sendAction(id, 'upload_photo')
   return promise
 }
 
