@@ -19,7 +19,6 @@ function updateMessages (messages, text) {
 
 function textProcessing (msg, teleBot, collectedMessages) {
   const text = msg.text.toLowerCase()
-  console.log(msg.from.first_name + ' ' + msg.from.last_name + ': ' + msg.text);
   const tweet = new Tweet({
     user: msg.from.first_name + ' ' + msg.from.last_name,
     tweet: msg.text,

@@ -6,7 +6,7 @@ mongoose.connect(
 
 const Salary = mongoose.model('Salary', {
   user: String,
-  salary: number,
+  salary: Number,
   comment: String,
   date: String,
 })
