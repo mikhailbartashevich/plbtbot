@@ -19,13 +19,12 @@ function publishSalary (msg, teleBot) {
       return
     }
     let response = ''
-    docs.forEach(
-      doc =>
-        (response +=
-          '<pre>' + doc.user + ' ' + doc.salary + ' ' + doc.comment + '</pre>')
-    )
-    teleBot.sendMessage(msg.chat.id, response, {
-      parseMode: 'HTML'
+    docs.forEach(doc => {
+      response =
+        '<pre>' + doc.user + ' ' + doc.salary + ' ' + doc.comment + '</pre>'
+      teleBot.sendMessage(msg.chat.id, response, {
+        parseMode: 'HTML'
+      })
     })
   })
 }
@@ -40,9 +39,7 @@ function addSalary (msg, teleBot) {
     date: new Date().toLocaleString()
   })
   tweet.save().then(() => {
-    teleBot.sendMessage(msg.chat.id, '<b>added salary</b>', {
-      parseMode: 'HTML'
-    })
+    teleBot.sendMessage(msg.chat.id, 'added salary')
     console.log('meow')
   })
 }
