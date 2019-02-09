@@ -5,6 +5,7 @@ mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 const Tweet = mongoose.model('Tweet', {
   user: String,
   tweet: String,
+  date: String,
 });
 
 
@@ -23,7 +24,8 @@ function textProcessing (msg, teleBot, collectedMessages) {
   console.log(msg.from.first_name + ' ' + msg.from.last_name + ': ' + msg.text);
   const tweet = new Tweet({
     user: msg.from.first_name + ' ' + msg.from.last_name,
-    tweet: msg.text
+    tweet: msg.text,
+    date: new Date().toLocaleDateString(),
   });
   tweet.save().then(() => console.log('meow'));
 
