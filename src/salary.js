@@ -18,7 +18,7 @@ function publishSalary (msg, teleBot) {
       teleBot.sendMessage(msg.chat.id, 'чот еррор')
       return
     }
-    const response = ''
+    let response = ''
     docs.forEach(
       doc =>
         (response +=
