@@ -11,6 +11,7 @@ function updateMessages (messages, text) {
 
 function textProcessing (msg, teleBot, collectedMessages) {
   const text = msg.text.toLowerCase()
+  console.log(msg.from.first_name + ' ' + msg.from.last_name + ': ' + msg.text);
   updateMessages(collectedMessages, text)
 
   if (text.indexOf('запомните этот твит') > -1) {
