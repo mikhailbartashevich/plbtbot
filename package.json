@@ -5,6 +5,7 @@
   "dependencies": {
     "googleapis": "^32.0.0",
     "http": "0.0.0",
+    "mongoose": "^5.4.11",
     "newrelic": "^4.1.0",
     "nodemon": "^1.9.2",
     "request": "^2.85.0",
