@@ -18,13 +18,14 @@ function publishSalary (msg, teleBot) {
       teleBot.sendMessage(msg.chat.id, 'чот еррор')
       return
     }
-    let response = ''
+    let response = '<table>';
     docs.forEach(doc => {
-      response =
-        '<pre>' + doc.user + ' ' + doc.salary + ' ' + doc.comment + '</pre>'
-      teleBot.sendMessage(msg.chat.id, response, {
-        parseMode: 'HTML'
-      })
+      response +=
+        '<tr><td>' + doc.user + ' ' + doc.salary + ' ' + doc.comment + '</td></tr>'
+    })
+    response += '</table>';
+    teleBot.sendMessage(msg.chat.id, response, {
+      parseMode: 'HTML'
     })
   })
 }
