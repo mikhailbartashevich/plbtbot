@@ -47,7 +47,7 @@ function addSalary (msg, teleBot) {
 function updateSalary (msg, teleBot) {
   const parts = msg.text.split(' ')
   parts.shift() // command
-  const query = { name: parts.shift() }
+  const query = { user: parts.shift() }
   Salary.findOneAndUpdate(
     query,
     {
