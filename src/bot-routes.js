@@ -75,6 +75,7 @@ function initRoutes (teleBot) {
 
   teleBot.on(['/salary'], msg => salary.publishSalary(msg, teleBot))
   teleBot.on(['/add-salary'], msg => salary.addSalary(msg, teleBot))
+  teleBot.on(['/update-salary'], msg => salary.updateSalary(msg, teleBot))
 }
 
 module.exports = {
