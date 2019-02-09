@@ -8,8 +8,6 @@ const Tweet = mongoose.model('Tweet', {
   date: String,
 });
 
-
-
 const BULBA_ROOTS = ['картош', 'картоф', 'бульб', 'картох', 'картоп']
 
 function updateMessages (messages, text) {

@@ -5,17 +5,15 @@ const fiat = require('./fiat')
 const splitwise = require('./splitwise')
 const movies = require('./movies')
 const keywords = require('./keywords')
+const salary = require('./salary')
 
 const COMMANDS = [
-  '/context-image',
   '/kitty',
   '/kittygif',
   '/plbt',
   '/xrp',
   '/btc',
   '/fiat',
-  '/movies',
-  '/awards'
 ]
 
 const COLLECTED_MESSAGES = []
@@ -74,6 +72,9 @@ function initRoutes (teleBot) {
   teleBot.on(['/context-image'], msg =>
     keywords.publishKeywords(msg, teleBot, COLLECTED_MESSAGES)
   )
+
+  teleBot.on(['/salary'], msg => salary.publishSalary(msg, teleBot))
+  teleBot.on(['/add-salary'], msg => salary.addSalary(msg, teleBot))
 }
 
 module.exports = {
