@@ -11,8 +11,8 @@ function showDoggy (msg, teleBot) {
       json: true
     },
     function (err, res, json) {
-      console.log(json.data[0].url)
-      teleBot.sendPhoto(id, json.data[0].url, {
+      console.log(json)
+      teleBot.sendPhoto(id, json[0].url, {
         fileName: 'doggy.jpg',
         serverDownload: true
       })
