@@ -45,7 +45,7 @@ function initSplitwiseRoutes (teleBot) {
 
 function initKittyRoutes (teleBot) {
   teleBot.on(['/kitty'], msg => kitty.showKitty(msg, teleBot))
-  teleBot.on(['/kittygif'], msg => kitty.showKittyGiff(msg, teleBot))
+  teleBot.on(['/kittygif'], msg => kitty.showKittyGif(msg, teleBot))
 }
 
 function initMoviesRoutes (teleBot) {
