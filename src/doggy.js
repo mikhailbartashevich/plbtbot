@@ -2,7 +2,6 @@ const request = require('request')
 const API = 'https://api.thedogapi.com/v1/images/search?api_key=ad0be3ef-8995-4f8d-a3dd-c4f6ffc1de46&limit=1&size=full'
 
 function showDoggy (msg, teleBot) {
-  console.log('showDoggy')
   const id = msg.chat.id
 
   request(
