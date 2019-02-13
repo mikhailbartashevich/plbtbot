@@ -5,7 +5,7 @@ function getFiatPrice (pair) {
   return new Promise((resolve, reject) => {
     request(
       {
-        url: `http://free.currencyconverterapi.com/api/v5/convert?q=${pair}&compact=y`,
+        url: `http://free.currencyconverterapi.com/api/v6/convert?q=${pair}&compact=y&apiKey=${process.env.CURRENCY_API_KEY}`,
         json: true
       },
       function (err, res, json) {
