@@ -79,6 +79,7 @@ function initRoutes (teleBot) {
   teleBot.on(['/update-salary'], msg => salary.updateSalary(msg, teleBot))
 
   teleBot.on(['/doggy'], msg => doggy.showDoggy(msg, teleBot))
+  teleBot.on(['/doggygif'], msg => doggy.showDoggyGif(msg, teleBot))
 }
 
 module.exports = {
