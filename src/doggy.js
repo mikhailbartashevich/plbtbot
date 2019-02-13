@@ -2,6 +2,7 @@ const request = require('request')
 const API = 'https://api.thedogapi.com/v1/images/search?limit=1&size=full'
 
 function showDoggy (msg, teleBot) {
+  console.log('showDoggy')
   const id = msg.chat.id
 
   request(
@@ -10,7 +11,8 @@ function showDoggy (msg, teleBot) {
       json: true
     },
     function (err, res, json) {
-      teleBot.sendPhoto(id, json[0].url, {
+      console.log(json.data[0].url)
+      teleBot.sendPhoto(id, json.data[0].url, {
         fileName: 'doggy.jpg',
         serverDownload: true
       })
