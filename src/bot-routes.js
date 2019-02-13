@@ -6,6 +6,7 @@ const splitwise = require('./splitwise')
 const movies = require('./movies')
 const keywords = require('./keywords')
 const salary = require('./salary')
+const doggy = require('./doggy')
 
 const COMMANDS = [
   '/kitty',
@@ -76,6 +77,8 @@ function initRoutes (teleBot) {
   teleBot.on(['/salary'], msg => salary.publishSalary(msg, teleBot))
   teleBot.on(['/add-salary'], msg => salary.addSalary(msg, teleBot))
   teleBot.on(['/update-salary'], msg => salary.updateSalary(msg, teleBot))
+
+  teleBot.on(['/doggy'], msg => doggy.showDoggy(msg, teleBot))
 }
 
 module.exports = {
