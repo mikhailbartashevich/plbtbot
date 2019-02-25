@@ -51,6 +51,18 @@ function textProcessing (msg, teleBot, collectedMessages) {
   }
 }
 
+function meText (msg, teleBot) {
+  const user = msg.from.first_name + ' ' + msg.from.last_name;
+  const parts = msg.text.split(' ')
+  parts.shift() // command
+
+  teleBot.sendMessage(
+    msg.chat.id,
+    user + ' ' + parts.join(' ')
+  )
+}
+
 module.exports = {
-  textProcessing
+  textProcessing,
+  meText
 }

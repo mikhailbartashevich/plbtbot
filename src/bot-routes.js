@@ -80,6 +80,10 @@ function initRoutes (teleBot) {
     text.textProcessing(msg, teleBot, COLLECTED_MESSAGES)
   )
 
+  teleBot.on(['/me'], msg =>
+    text.meText(msg, teleBot)
+  )
+
   teleBot.on(['/context-image'], msg =>
     keywords.publishKeywords(msg, teleBot, COLLECTED_MESSAGES)
   )
