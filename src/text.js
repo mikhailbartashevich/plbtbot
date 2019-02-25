@@ -21,17 +21,19 @@ function updateMessages (messages, text) {
 }
 
 function memasiki (msg, teleBot) {
+  const id = msg.chat.id
+  const text = msg.text.toLowerCase()
   const configs = JSON.parse(process.env.MEMASIKI)
 
   for (const config of configs) {
 
     for (const key of config.keys) {
       if (text.includes(key)) {
-        teleBot.sendPhoto(msg.chat.id, config.meme, {
+        teleBot.sendPhoto(id, config.meme, {
           fileName: 'meme.jpg',
           serverDownload: true
         })
-        teleBot.sendAction(msg.chat.id, 'upload_photo')
+        teleBot.sendAction(id, 'upload_photo')
       }
     }
 
