@@ -11,7 +11,7 @@ const Tweet = mongoose.model('Tweet', {
   date: String
 })
 
-const BULBA_ROOTS = ['картош', 'картоф', 'бульб', 'картох', 'картоп']
+const BULBA_ROOTS = process.env.KARTOSHI
 
 function updateMessages (messages, text) {
   messages.push(text)
