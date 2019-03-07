@@ -11,6 +11,11 @@ const Tweet = mongoose.model('Tweet', {
   date: String
 })
 
+const MemeStat = mongoose.model('MemeStat', {
+  id: String,
+  count: Number
+})
+
 const BULBA_ROOTS = JSON.parse(process.env.KARTOSHI)
 
 function updateMessages (messages, text) {
@@ -20,15 +25,43 @@ function updateMessages (messages, text) {
   }
 }
 
+function saveMemeStat (config) {
+  const query = { id: config.id }
+  MemeStat.findOne(query, function (err, stat) {
+    if (stat) {
+      MemeStat.findOneAndUpdate(query, {
+        count: stat.count + 1
+      })
+    } else {
+      const tweet = new MemeStat({
+        id: config.id,
+        count: 1
+      })
+      tweet.save().then(() => console.log('meow saved'))
+    }
+  })
+}
+
+function notNegative (text, config) {
+  for (const key of config.negative) {
+    if (text.includes(key)) {
+      return false
+    }
+  }
+  return true
+}
+
 function memasiki (msg, teleBot) {
   const id = msg.chat.id
   const text = msg.text.toLowerCase()
   const configs = JSON.parse(process.env.MEMASIKI)
 
   for (const config of configs) {
-
     for (const key of config.keys) {
-      if (text.includes(key)) {
+      if (text.includes(key) && notNegative(text, config)) {
+        if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+          saveMemeStat(config)
+        }
         teleBot.sendPhoto(id, config.meme, {
           fileName: 'meme.jpg',
           serverDownload: true
@@ -36,7 +69,6 @@ function memasiki (msg, teleBot) {
         teleBot.sendAction(id, 'upload_photo')
       }
     }
-
   }
 }
 
@@ -85,7 +117,26 @@ function meText (msg, teleBot) {
   teleBot.sendMessage(msg.chat.id, user + ' ' + parts.join(' '))
 }
 
+function publishMemeStats (msg, teleBot) {
+  const query = MemeStat.find({})
+  query.exec(function (err, docs) {
+    if (err) {
+      teleBot.sendMessage(msg.chat.id, 'чот еррор')
+      return
+    }
+    let response = ''
+    docs.forEach(doc => {
+      response =
+        '<pre>' + doc.id + ' ' + doc.count + '</pre>'
+      teleBot.sendMessage(msg.chat.id, response, {
+        parseMode: 'HTML'
+      })
+    })
+  })
+}
+
 module.exports = {
   textProcessing,
-  meText
+  meText,
+  publishMemeStats
 }

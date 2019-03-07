@@ -8,7 +8,16 @@ const keywords = require('./keywords')
 const salary = require('./salary')
 const doggy = require('./doggy')
 
-const COMMANDS = ['/kitty', '/kittygif', '/doggy', '/doggygif', '/plbt', '/xrp', '/btc', '/fiat']
+const COMMANDS = [
+  '/kitty',
+  '/kittygif',
+  '/doggy',
+  '/doggygif',
+  '/plbt',
+  '/xrp',
+  '/btc',
+  '/fiat'
+]
 
 const COLLECTED_MESSAGES = []
 
@@ -80,13 +89,13 @@ function initRoutes (teleBot) {
     text.textProcessing(msg, teleBot, COLLECTED_MESSAGES)
   )
 
-  teleBot.on(['/me'], msg =>
-    text.meText(msg, teleBot)
-  )
+  teleBot.on(['/me'], msg => text.meText(msg, teleBot))
 
   teleBot.on(['/context-image'], msg =>
     keywords.publishKeywords(msg, teleBot, COLLECTED_MESSAGES)
   )
+
+  teleBot.on(['/meme-stats'], msg => text.publishMemeStats(msg, teleBot))
 }
 
 module.exports = {
