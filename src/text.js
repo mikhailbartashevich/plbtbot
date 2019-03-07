@@ -29,6 +29,7 @@ function saveMemeStat (config) {
   const query = { id: config.id }
   MemeStat.findOne(query, function (err, stat) {
     if (stat) {
+      console.log('meow found');
       MemeStat.findOneAndUpdate(query, {
         count: stat.count + 1
       })
@@ -62,6 +63,7 @@ function memasiki (msg, teleBot) {
         if (msg.chat.id == process.env.JOKES_CHAT_ID) {
           saveMemeStat(config)
         }
+        saveMemeStat(config)
         teleBot.sendPhoto(id, config.meme, {
           fileName: 'meme.jpg',
           serverDownload: true
