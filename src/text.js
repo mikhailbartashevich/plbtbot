@@ -29,11 +29,10 @@ function saveMemeStat (config) {
   const query = { id: config.id }
   MemeStat.findOne(query, function (err, stat) {
     if (stat) {
-      console.log('meow found ' + stat);
       MemeStat.findOneAndUpdate(query, {
         id: config.id,
         count: stat.count + 1
-      })
+      }).exec(() => console.log('meow updated'))
     } else {
       const tweet = new MemeStat({
         id: config.id,
