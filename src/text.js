@@ -45,7 +45,7 @@ function saveMemeStat (config) {
 
 function notNegative (text, config) {
   for (const key of config.negative) {
-    if (text.includes(key)) {
+    if (key && text.includes(key)) {
       return false
     }
   }
