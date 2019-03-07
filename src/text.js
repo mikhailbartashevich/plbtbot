@@ -126,8 +126,7 @@ function publishMemeStats (msg, teleBot) {
     }
     let response = ''
     docs.forEach(doc => {
-      response =
-        '<pre>' + doc.id + ' ' + doc.count + '</pre>'
+      response = '<pre>' + doc.id + ' ' + doc.count + '</pre>'
       teleBot.sendMessage(msg.chat.id, response, {
         parseMode: 'HTML'
       })
