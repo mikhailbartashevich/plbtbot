@@ -29,8 +29,9 @@ function saveMemeStat (config) {
   const query = { id: config.id }
   MemeStat.findOne(query, function (err, stat) {
     if (stat) {
-      console.log('meow found');
+      console.log('meow found ' + stat);
       MemeStat.findOneAndUpdate(query, {
+        id: config.id,
         count: stat.count + 1
       })
     } else {
