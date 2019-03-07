@@ -63,7 +63,6 @@ function memasiki (msg, teleBot) {
         if (msg.chat.id == process.env.JOKES_CHAT_ID) {
           saveMemeStat(config)
         }
-        saveMemeStat(config)
         teleBot.sendPhoto(id, config.meme, {
           fileName: 'meme.jpg',
           serverDownload: true
