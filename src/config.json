@@ -206,7 +206,7 @@
   {
     "keys": ["боль"],
     "id": "pain",
-    "negative": ["больше"],
+    "negative": ["больш"],
     "meme": "https://cdn.maximonline.ru/f7/f9/f1/f7f9f1783e3636349db324b5153a3f58/665x460_1_7d765d21becf0387becf296490c361e5@1200x830_0xac120005_17252978471529115166.jpg"
   },
   {
@@ -232,5 +232,35 @@
     "id": "gorit",
     "negative": [""],
     "meme": "https://pbs.twimg.com/profile_images/610732923717844992/3ZQE_5VK.jpg"
+  },
+  {
+    "keys": ["карл"],
+    "id": "karl",
+    "negative": [""],
+    "meme": "https://gif.cmtt.space/3/paper-preview-fox/c/or/coral/125c87259c78-normal.jpg"
+  },
+  {
+    "keys":["bosch", "бош"],
+    "meme":"https://images-na.ssl-images-amazon.com/images/I/41iooDqSNdL.jpg",
+    "id":"bosch",
+    "negative":["обошлось"]
+  },
+  {
+    "keys":["stable", "стейбл"],
+    "meme":"https://render.fineartamerica.com/images/rendered/default/poster/10/8/break/images/artworkimages/medium/1/superman-logo-digital-artwork-georgeta-blanaru.jpg",
+    "id":"stablecoin",
+    "negative":[""]
+  },
+  {
+    "keys":["бананья", "баранья"],
+    "meme":"https://cs10.pikabu.ru/post_img/big/2018/01/16/10/1516120082140277586.jpg",
+    "id":"banania",
+    "negative":[""]
+  },
+  {
+    "keys":["спарта", "sparta", "спартез"],
+    "meme":"https://memegenerator.net/img/images/119210.jpg",
+    "id":"sparta",
+    "negative":[""]
   }
 ]
