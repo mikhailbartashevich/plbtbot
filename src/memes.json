@@ -286,5 +286,18 @@
     "meme":"https://lh3.googleusercontent.com/proxy/RqBAPDPQ_uQ5M9v_xSWOIPKCxxC7ob7XMMTbvceIIOuTLEcx9vydFhYpPGALTTv1HF3q630mFjxV_1GzipW4yIYKv0Bg_Lc6h_9CX8JE9LTzhw",
     "id":"natash",
     "negative":[""]
+  },
+  {
+    "keys":["заплати ведьмаку"],
+    "meme":"https://habrastorage.org/webt/tg/yo/a2/tgyoa2qs3ynwexlutfx0qj8bhay.jpeg",
+    "id":"witcher",
+    "negative":[""]
+  },
+  {
+    "keys":["штош"],
+    "meme":"https://ic.pics.livejournal.com/alcotank/77774901/50110/50110_900.jpg",
+    "id":"shtosh",
+    "negative":[""]
   }
+
 ]
