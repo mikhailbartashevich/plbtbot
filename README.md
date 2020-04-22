@@ -1,22 +1,3 @@
-const BOT_ID = '538233729:AAHJqMW2om913dzeTOECVxUm3Nb6AMTy7Xo';
-const CURRENCY_API_KEY = '37554ae4eccc6bad3ba7';
-const JOKES_CHAT_ID = '-286401660';
-const KARTOSHI = ["картош", "картоф", "бульб", "картох", "картоп", "земняк"];
-const MESSAGES_COUNTER  = '10';
-const MONGODB_URI = 'mongodb://heroku_49qd3nzq:pldf72h0hi6i9j4c5imniidp2g@ds147213.mlab.com:47213/heroku_49qd3nzq';
-const PANTHEON_CLIENT_ID = '979520689029-41gh8lobrtnie2qq1fctupjt96r3eq14.apps.googleusercontent.com';
-const PANTHEON_CLIENT_SECRET = 'Po_numU-S2DAJLLoJOky_fys';
-const PAPERTRAIL_API_TOKEN = 'EspIl4uo0PTiuQXBqg3Q';
-const PARALLEL_DOTS_KEY = 'mR0nubcabFtHKVro2hwTiS0hJl4OS5Jv2PeWxQgUoIs';
-const PIXABAY_API_KEY = '10746472-5809f82349880cfc46aea10c3';
-const SPLIT_USER_281548620  = '6181165';
-const SPLIT_USER_437814936  = '6181181';
-const SPLITWISE_CONSUMER_KEY = 'CaTRJTDOXpcqK0iz5oBsE53kC6CrxWoIc9MtMZwV';
-const SPLITWISE_GROUP = '5626964';
-const SPLITWISE_SECRET = 'HXorLklyzQBnu8y7YBFb8Kt9lMp3yrzN9DIOLAWC';
-const SPREADSHEET_ACCESS_TOKEN = 'ya29.Glv8BSSCzSBtQtaUn5Q5bLG7W1F_I0FHsIIwfmKLPERBzTU5oI494q4YzIDB1BOEYObz6Uqkx06A-Wyl78sbEkNY6K5py86MB5LpGkR-wbGqHHlIt2Hdf-iFlrb2';
-const SPREADSHEET_ID = '1zH0oBaRmZxAJFtRnnMTTZk81kwTO_nTslLeVNDA8Ysw';
-const SPREADSHEET_REFRESH_TOKEN = '1/pJYg-KWZJnQQTJLpPDP1C5FkU7SGSlcfwrYYjehneJq5cmwXXcq8I1knjVyEP4E_';
-const THE_CAT_API_KEY = '5470786d-6bde-48cb-a0e1-bc6d90fa1010';
-const THE_DOG_API_KEY = 'ad0be3ef-8995-4f8d-a3dd-c4f6ffc1de46';
-const YANDEX_API_KEY = 'trnsl.1.1.20181120T055944Z.05ed1b464b912856.e4a9ae8349beff038a6837df3a6787c14d59ca15';
+# @PolybiusBot
+
+Welcome to @PolybiusBot. It is a Telegram bot. To use it open Telegram app.
