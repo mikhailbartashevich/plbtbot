@@ -21,12 +21,12 @@ function getCryptoPrice (cryptoInfo) {
     if (!cryptoInfo) reject()
     request(
       {
-        url: `https://api.coinmarketcap.com/v2/ticker/${cryptoInfo.id}/`,
+        url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=${CMC_PRO_API_KEY}&symbol=${cryptoInfo.toUpperCase()}`,
         json: true
       },
       (err, res, json) => {
         if (err) reject(err)
-        resolve(json.data.quotes.USD.price)
+        resolve(json.data ?  json.data[Object.keys(json.data)[0]].quote.USD.price : 0)
       }
     )
   })
@@ -35,8 +35,7 @@ function getCryptoPrice (cryptoInfo) {
 function publishCryptoPrice (msg, teleBot) {
   const crypto = msg.text.split(' ')[1] || ''
   const id = msg.chat.id
-  getCryptoInfo(crypto)
-    .then(info => getCryptoPrice(info))
+  getCryptoPrice(crypto)
     .then(price => teleBot.sendMessage(id, `The price is ${price.toFixed(2)}.`))
     .catch(_ => teleBot.sendMessage(id, `Crypto is not found.`))
 }
@@ -61,13 +60,14 @@ function getCryptoChatTitle (price, terminator) {
   }
   return 'ГКТИ'
 }
+const JOKES_CHAT_ID = '-286401660';
 
 function publishBtcPrice (msg, teleBot) {
   const id = msg.chat.id
-  getCryptoPrice({ id: 1 })
+  getCryptoPrice('BTC')
     .then(price => {
       teleBot.sendMessage(id, getCryptoMessage(price.toFixed(2), 8000))
-      if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+      if (msg.chat.id == JOKES_CHAT_ID) {
         teleBot
           .setChatPhoto(id, getCryptoChatPhoto(price, 8000), {
             serverDownload: true
@@ -79,7 +79,7 @@ function publishBtcPrice (msg, teleBot) {
       }
       kitty
         .showKitty(msg, teleBot)
-        .catch(error => console.log('[error]', error))
+
     })
     .catch(error => console.log('[error]', error))
 }
@@ -93,23 +93,22 @@ function getXrpMessage (price, terminator) {
 
 function publishXrpPrice (msg, teleBot) {
   const id = msg.chat.id
-  getCryptoPrice({ id: 52 })
+  getCryptoPrice('XRP')
     .then(price => {
       teleBot.sendMessage(id, getXrpMessage(price.toFixed(2), 1.5))
-      if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+      if (msg.chat.id == JOKES_CHAT_ID) {
         teleBot
           .setChatTitle(id, getCryptoChatTitle(price, 1.5))
           .catch(error => console.log('Error:', error))
       }
       kitty
         .showKitty(msg, teleBot)
-        .catch(error => console.log('[error]', error))
     })
     .catch(error => console.log('[error]', error))
 }
 
 function getPlbtMessage (price, terminator, msg) {
-  if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+  if (msg.chat.id == JOKES_CHAT_ID) {
     if (price > terminator) {
       return `The price is ${price}. No Kitty enjoy money. Yura is a rich man!`
     }
@@ -127,17 +126,16 @@ function getPlbtChatTitle (price, terminator) {
 
 function publishPlbtPrice (msg, teleBot) {
   const id = msg.chat.id
-  getCryptoPrice({ id: 1784 })
+  getCryptoPrice('PLBT')
     .then(price => {
       teleBot.sendMessage(id, getPlbtMessage(price.toFixed(2), 4, msg))
-      if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+      if (msg.chat.id == JOKES_CHAT_ID) {
         teleBot
           .setChatTitle(id, getPlbtChatTitle(price, 4))
           .catch(error => console.log('Error:', error))
       }
       kitty
         .showKitty(msg, teleBot)
-        .catch(error => console.log('[error]', error))
     })
     .catch(error => console.log('[error]', error))
 }
