@@ -1,0 +1,290 @@
+[
+  {
+    "keys": ["комбо", "combo"],
+    "id": "combo",
+    "negative": [""],
+    "meme": "https://s-media-cache-ak0.pinimg.com/originals/8c/07/1e/8c071e262c28e72580197d1aa3497856.jpg"
+  },
+  {
+    "keys": ["нормал"],
+    "id": "norm",
+    "negative": [""],
+    "meme": "https://cs6.pikabu.ru/images/big_size_comm/2015-03_1/1425536095444.jpg"
+  },
+  {
+    "keys": ["это норма"],
+    "id": "norma",
+    "negative": [""],
+    "meme": "https://memepedia.ru/wp-content/uploads/2017/08/%D1%8D%D1%82%D0%BE-%D0%BD%D0%BE%D1%80%D0%BC%D0%B0-1.png"
+  },
+  {
+    "keys": ["совпадение"],
+    "id": "sovpadenie",
+    "negative": [""],
+    "meme": "http://pics.wikireality.ru/upload/thumb/f/f3/Kiselyov-2014_66401280_orig_.jpeg/300px-Kiselyov-2014_66401280_orig_.jpeg"
+  },
+  {
+    "keys": ["ололо"],
+    "id": "ololo",
+    "negative": [""],
+    "meme": "https://www.meme-arsenal.com/memes/15ae5cffde74a6e465bb07591e440c0b.jpg"
+  },
+  {
+    "keys": ["сорян"],
+    "id": "sorian",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/32sdp2.jpg"
+  },
+  {
+    "keys": ["бля"],
+    "id": "blya",
+    "negative": [""],
+    "meme": "https://cs.pikabu.ru/images/big_size_comm/2013-06_5/13720981439215.jpg"
+  },
+  {
+    "keys": ["так блэт"],
+    "id": "tak blet",
+    "negative": [""],
+    "meme": "http://memepedia.ru/wp-content/uploads/2017/06/%D1%82%D0%B0%D0%BA-%D0%B1%D0%BB%D1%8D%D1%82.jpg"
+  },
+  {
+    "keys": ["без страха"],
+    "id": "no fear",
+    "negative": [""],
+    "meme": "https://otvet.imgsmail.ru/download/u_59209dabfc11c24044f254f03cbf144d_800.jpg"
+  },
+  {
+    "keys": ["няш"],
+    "id": "nyash",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/mlny3s.jpg"
+  },
+  {
+    "keys": ["чотко"],
+    "id": "chotko",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/kg8q3t.jpg"
+  },
+  {
+    "keys": ["ничоси", "фига"],
+    "id": "nichosi",
+    "negative": [""],
+    "meme": "https://gif.cmtt.space/3/paper-media/18/90/f0/b583ef0102269a.jpg"
+  },
+  {
+    "keys": ["чай"],
+    "id": "chaesi",
+    "negative": ["случай"],
+    "meme": "https://pp.userapi.com/c627629/v627629116/b6/1ywLhXbSVso.jpg"
+  },
+  {
+    "keys": ["биткоин", "биток"],
+    "id": "bitcoin",
+    "negative": [""],
+    "meme": "https://img.esteem.ws/das2rpmqlw.jpg"
+  },
+  {
+    "keys": ["полибий", "полибиус", "polybius"],
+    "id": "plbt",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/t6u9la.jpg"
+  },
+  {
+    "keys": ["пиздец", "блять", "нахуй"],
+    "id": "pizdec",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/iu43sa.jpg"
+  },
+  {
+    "keys": ["обидно", "твою мать"],
+    "id": "obidno",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/kubrev.jpg"
+  },
+  {
+    "keys": ["подозр"],
+    "id": "podozritelno",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/9ufxez.jpg"
+  },
+  {
+    "keys": ["хуйня какая-то"],
+    "id": "huinia kakayato",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/8cw750.jpg"
+  },
+  {
+    "keys": ["преда", "вымога"],
+    "id": "evil",
+    "negative": [""],
+    "meme": "https://cs9.pikabu.ru/post_img/2017/10/28/10/150920905213566036.jpg"
+  },
+  {
+    "keys": ["хитрож", "хитрая жопа"],
+    "id": "hitrozop",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/250/u2141m.jpg"
+  },
+  {
+    "keys": ["бред какой-то"],
+    "id": "bred",
+    "negative": [""],
+    "meme": "http://myhd.info/userfiles/clauses/large/373_58_r6kugcoy.jpg"
+  },
+  {
+    "keys": ["не могу"],
+    "id": "can not",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/wump6s.jpg"
+  },
+  {
+    "keys": ["вот это поворот"],
+    "id": "povorot",
+    "negative": [""],
+    "meme": "https://pp.userapi.com/Eiz8BxC6xO1sTryjy71PBgnirzVPb1KEGpRzHA/5fCKgG4xQ6k.jpg"
+  },
+  {
+    "keys": ["упячка"],
+    "id": "upiachka",
+    "negative": [""],
+    "meme": "https://cs6.pikabu.ru/post_img/big/2014/02/17/9/1392642248_1156147191.jpeg"
+  },
+  {
+    "keys": ["я знал", "я говорил"],
+    "id": "genius",
+    "negative": [""],
+    "meme": "https://s00.yaplakal.com/pics/pics_original/8/1/2/8322218.jpg"
+  },
+  {
+    "keys": ["пореша"],
+    "id": "poreshal",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/25gjli.jpg"
+  },
+  {
+    "keys": ["magic", "магия"],
+    "id": "magic",
+    "negative": [""],
+    "meme": "https://www.sostav.ru/itogi_test/image.php?ID=371"
+  },
+  {
+    "keys": ["нельзя просто"],
+    "id": "boromir",
+    "negative": [""],
+    "meme": "https://memepedia.ru/wp-content/uploads/2017/04/SeanBeanBoromir.jpg"
+  },
+  {
+    "keys": ["это интересно", "заинтригован"],
+    "id": "interesting",
+    "negative": [""],
+    "meme": "https://simg.sputnik.ru/?key=3dad85e064bc45b03d9e767d732bfafdd535972f"
+  },
+  {
+    "keys": ["удивлен", "хуясе"],
+    "id": "hujase",
+    "negative": [""],
+    "meme": "https://s.tcdn.co/d06/e20/d06e2057-5c13-324d-b94f-9b5a0e64f2da/5.png"
+  },
+  {
+    "keys": ["как тебе такое", "илон"],
+    "id": "musk",
+    "negative": [""],
+    "meme": "https://s11.stc.all.kpcdn.net/share/i/12/10604075/inx960x640.jpg"
+  },
+  {
+    "keys": ["нех", "неведомая"],
+    "id": "nech",
+    "negative": [""],
+    "meme": "https://memchik.ru/images/templates/thumb_mcconaughey_smoke.jpg"
+  },
+  {
+    "keys": ["спишь", "спал"],
+    "id": "sleep",
+    "negative": [""],
+    "meme": "https://otvetkino.ru/uploads/posts/2016-08/1471550946_edvard-norton-mem-2.jpg"
+  },
+  {
+    "keys": ["боль"],
+    "id": "pain",
+    "negative": ["больш"],
+    "meme": "https://cdn.maximonline.ru/f7/f9/f1/f7f9f1783e3636349db324b5153a3f58/665x460_1_7d765d21becf0387becf296490c361e5@1200x830_0xac120005_17252978471529115166.jpg"
+  },
+  {
+    "keys": ["с днем рождения", "с днём рождения", "днюх"],
+    "id": "birthday",
+    "negative": [""],
+    "meme": "https://by.tribuna.com/assets/photos/25548/article_big/FILM-gatsby-2-0.jpg"
+  },
+  {
+    "keys": ["поздравляю", "с праздником", "праздник"],
+    "id": "congrats",
+    "negative": [""],
+    "meme": "http://memesmix.net/media/created/o9gtdn.jpg"
+  },
+  {
+    "keys": ["масленица", "блины"],
+    "id": "maslenica",
+    "negative": [""],
+    "meme": "https://cs4.pikabu.ru/post_img/2015/02/16/5/1424070071_484801205.jpeg"
+  },
+  {
+    "keys": ["горит", "бомбит", "пукан", "пригорело", "подгорело"],
+    "id": "gorit",
+    "negative": [""],
+    "meme": "https://pbs.twimg.com/profile_images/610732923717844992/3ZQE_5VK.jpg"
+  },
+  {
+    "keys": ["карл"],
+    "id": "karl",
+    "negative": [""],
+    "meme": "https://gif.cmtt.space/3/paper-preview-fox/c/or/coral/125c87259c78-normal.jpg"
+  },
+  {
+    "keys":["bosch", "бош"],
+    "meme":"https://images-na.ssl-images-amazon.com/images/I/41iooDqSNdL.jpg",
+    "id":"bosch",
+    "negative":["обошлось"]
+  },
+  {
+    "keys":["stable", "стейбл"],
+    "meme":"https://render.fineartamerica.com/images/rendered/default/poster/10/8/break/images/artworkimages/medium/1/superman-logo-digital-artwork-georgeta-blanaru.jpg",
+    "id":"stablecoin",
+    "negative":[""]
+  },
+  {
+    "keys":["бананья", "баранья"],
+    "meme":"https://cs10.pikabu.ru/post_img/big/2018/01/16/10/1516120082140277586.jpg",
+    "id":"banania",
+    "negative":[""]
+  },
+  {
+    "keys":["спарта", "sparta", "спартез"],
+    "meme":"https://www.zeptha.com/postimages/2018/7/brave_and_epic_facts_about_the_300_spartans_and_battle_of_thermopylae_20180723103601.jpg",
+    "id":"sparta",
+    "negative":[""]
+  },
+  {
+    "keys":["револют"],
+    "meme":"https://payspacemagazine.com/wp-content/uploads/2019/11/revolut.png",
+    "id":"revolut",
+    "negative":[""]
+  },
+  {
+    "keys":["епам", "epam"],
+    "meme":"https://i.ibb.co/MCjFDJN/Screenshot-2020-04-22-at-14-19-58.png",
+    "id":"epam",
+    "negative":[""]
+  },
+  {
+    "keys":["ебучий банк"],
+    "meme":"https://habrastorage.org/getpro/habr/post_images/5c5/bf0/4f5/5c5bf04f54d93eaeb28b122ef42a30f0.jpg",
+    "id":"ebbank",
+    "negative":[""]
+  },
+  {
+    "keys":["наташа"],
+    "meme":"https://lh3.googleusercontent.com/proxy/RqBAPDPQ_uQ5M9v_xSWOIPKCxxC7ob7XMMTbvceIIOuTLEcx9vydFhYpPGALTTv1HF3q630mFjxV_1GzipW4yIYKv0Bg_Lc6h_9CX8JE9LTzhw",
+    "id":"natash",
+    "negative":[""]
+  }
+]
