@@ -21,7 +21,7 @@ function getCryptoPrice (cryptoInfo) {
     if (!cryptoInfo) reject()
     request(
       {
-        url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=${CMC_PRO_API_KEY}&symbol=${cryptoInfo.toUpperCase()}`,
+        url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=${process.env.CMC_PRO_API_KEY}&symbol=${cryptoInfo.toUpperCase()}`,
         json: true
       },
       (err, res, json) => {
