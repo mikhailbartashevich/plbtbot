@@ -2,17 +2,17 @@ const request = require('request')
 const kitty = require('./kitty')
 
 function getFiatPrice (pair) {
+  const splitted = pair.split('_')
+  const base = splitted[0].toUpperCase()
+  const symbol = splitted[1].toUpperCase()
   return new Promise((resolve, reject) => {
     request(
       {
-        url: `http://free.currencyconverterapi.com/api/v6/convert?q=${pair}&compact=y&apiKey=${process.env.CURRENCY_API_KEY}`,
+        url: `https://api.ratesapi.io/api/latest?symbols=${symbol}&base=${base}`,
         json: true
       },
       function (err, res, json) {
-        const keys = Object.keys(json)
-        const key = keys.length ? keys[0] : ''
-        if (!key) reject()
-        resolve(json[key].val)
+        resolve(json.rates[symbol])
       }
     )
   })

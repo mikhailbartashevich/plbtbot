@@ -81,7 +81,7 @@
     "keys": ["биткоин", "биток"],
     "id": "bitcoin",
     "negative": [""],
-    "meme": "https://img.esteem.ws/das2rpmqlw.jpg"
+    "meme": "https://preview.redd.it/61sl8stbjii01.jpg?auto=webp&s=920b8d9feba2ddeb45ab4c52cc0287027c20bfea"
   },
   {
     "keys": ["полибий", "полибиус", "polybius"],
@@ -282,8 +282,8 @@
     "negative":[""]
   },
   {
-    "keys":["наташа"],
-    "meme":"https://lh3.googleusercontent.com/proxy/RqBAPDPQ_uQ5M9v_xSWOIPKCxxC7ob7XMMTbvceIIOuTLEcx9vydFhYpPGALTTv1HF3q630mFjxV_1GzipW4yIYKv0Bg_Lc6h_9CX8JE9LTzhw",
+    "keys":["наташ"],
+    "meme":"https://pbs.twimg.com/media/EUfWRGAX0AUqrpA.jpg",
     "id":"natash",
     "negative":[""]
   },
@@ -298,6 +298,47 @@
     "meme":"https://ic.pics.livejournal.com/alcotank/77774901/50110/50110_900.jpg",
     "id":"shtosh",
     "negative":[""]
+  },
+  {
+    "keys":["кукушка","кукушечка"],
+    "meme":"https://i.pinimg.com/originals/b9/df/91/b9df91bb1752f397ad4a6fb79eeeddaa.png",
+    "id":"kukush",
+    "negative":[""]
+  },
+  {
+    "keys":["нужны пруфы"],
+    "meme":"https://www.meme-arsenal.com/memes/f328528661bb71f2ecee638a0f3fb3f9.jpg",
+    "id":"proof",
+    "negative":[""]
+  },
+  {
+    "keys":["ну да ну да", "ну да, ну да"],
+    "meme":"https://memepedia.ru/wp-content/uploads/2019/08/nu-da-nu-da-poshel-ya-na-her.jpg",
+    "id":"nudanuda",
+    "negative":[""]
+  },
+  {
+    "keys":["житие"],
+    "meme":"https://cs8.pikabu.ru/post_img/2017/12/21/6/1513846434121284917.png",
+    "id":"zytie",
+    "negative":[""]
+  },
+  {
+    "keys":["wat","шта"],
+    "meme":"https://cdn.fishki.net/upload/post/2016/12/19/2168978/tn/maxresdefault.jpg",
+    "id":"wat",
+    "negative":["штатно", "watch", "штат"]
+  },
+  {
+    "keys":["nice","найс"],
+    "meme":"https://i.redd.it/mdei2mxzyjhz.jpg",
+    "id":"nice",
+    "negative":[""]
+  },
+  {
+    "keys":["нот бэд","not bad"],
+    "meme":"https://memepedia.ru/wp-content/uploads/2017/03/not-bad.jpeg",
+    "id":"notbad",
+    "negative":[""]
   }
-
 ]
