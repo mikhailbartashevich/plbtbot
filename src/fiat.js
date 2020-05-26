@@ -12,7 +12,11 @@ function getFiatPrice (pair) {
         json: true
       },
       function (err, res, json) {
-        resolve(json.rates[symbol])
+        if(err || !json.rates || !json.rates[symbol] ) {
+          reject('Error')
+        } else {
+          resolve(json.rates[symbol])
+        }
       }
     )
   })
