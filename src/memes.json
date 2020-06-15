@@ -283,7 +283,7 @@
   },
   {
     "keys":["наташ"],
-    "meme":"https://pbs.twimg.com/media/EUfWRGAX0AUqrpA.jpg",
+    "meme":"http://img1.joyreactor.cc/pics/post/full/%D0%9D%D0%B0%D1%82%D0%B0%D1%88%D0%B0-%D0%B2%D1%81%D1%82%D0%B0%D0%B2%D0%B0%D0%B9-%D0%BA%D0%BE%D1%82%D0%B8%D0%B7%D0%BC-%D0%B2%D0%B0%D1%82%D0%B5%D1%80%D0%BC%D0%B0%D1%80%D0%BA%D0%B0-%D0%A5%D0%BE%D0%BA%D0%BA%D1%83-5979779.jpeg",
     "id":"natash",
     "negative":[""]
   },
@@ -306,7 +306,7 @@
     "negative":[""]
   },
   {
-    "keys":["нужны пруфы"],
+    "keys":["пруфы"],
     "meme":"https://www.meme-arsenal.com/memes/f328528661bb71f2ecee638a0f3fb3f9.jpg",
     "id":"proof",
     "negative":[""]
@@ -340,5 +340,11 @@
     "meme":"https://memepedia.ru/wp-content/uploads/2017/03/not-bad.jpeg",
     "id":"notbad",
     "negative":[""]
+  },
+  {
+    "keys":["смарт", "умно", "хитро", "smart"],
+    "meme":"https://i.kym-cdn.com/entries/icons/facebook/000/022/138/highresrollsafe.jpg",
+    "id":"smart",
+    "negative":["хитрож", "хитрая жопа"]
   }
 ]
