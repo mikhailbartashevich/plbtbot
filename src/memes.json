@@ -345,6 +345,11 @@
     "keys":["смарт", "умно", "хитро", "smart"],
     "meme":"https://i.kym-cdn.com/entries/icons/facebook/000/022/138/highresrollsafe.jpg",
     "id":"smart",
-    "negative":["хитрож", "хитрая жопа"]
+    "negative":["хитрож", "хитрая жопа", "смартфон", "smartfon", "smartphone"]
+  },
+  {
+    "keys":["эквиникс"],
+    "meme":"https://s1.reutersmedia.net/resources/r/?m=02&d=20110808&t=2&i=475172680&r=img-2011-08-08T203905Z_01_NOOTR_RTRMDNC_0_India-586787-1&w=1280",
+    "id":"equinix"
   }
 ]
