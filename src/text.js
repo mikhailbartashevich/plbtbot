@@ -108,6 +108,10 @@ function textProcessing (msg, teleBot, collectedMessages) {
   if (text.indexOf('ебучие джуны') > -1 || text.indexOf('ебучий джун') > -1) {
     jokes.eJunior(msg, teleBot)
   }
+
+  if (text.indexOf('индус') > -1) {
+    jokes.eInd(msg, teleBot)
+  }
 }
 
 function meText (msg, teleBot) {

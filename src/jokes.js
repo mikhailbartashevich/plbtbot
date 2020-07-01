@@ -26,6 +26,21 @@ function processEJunior (auth, { msg, teleBot }) {
     })
 }
 
+function processEInd (auth, { msg, teleBot }) {
+  const callbackMessage = 'Опять ебучий индус?'
+  const id = msg.chat.id
+  tweets
+    .appendTweet(auth, msg, 'D:D')
+    .then(() => tweets.updateTotal(auth, 'D2'))
+    .then(total => {
+      teleBot.sendPhoto(id, 'https://s3.nat-geo.ru/images/2019/4/10/1cec6531e2804c7c9a53e1c23baea7e1.max-2000x1000.jpg', {
+        fileName: 'image.jpg',
+        serverDownload: true
+      })
+      teleBot.sendMessage(id, `${callbackMessage} Нашучено: ${total}`)
+    })
+}
+
 function processKartoshkaJoke (auth, { msg, teleBot }) {
   const callbackMessage = 'Что это, еще одна бульба-шутка?'
   const id = msg.chat.id
@@ -63,8 +78,13 @@ function eJunior (msg, teleBot) {
   }
 }
 
+function eInd (msg, teleBot) {
+  if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+    spreadsheet.authorize(CREDENTIALS, processEInd, { msg, teleBot })
+  }
+}
+
 function kartoshkaJoke (msg, teleBot) {
-  console.log(msg.chat.id)
   if (msg.chat.id == process.env.JOKES_CHAT_ID) {
     spreadsheet.authorize(CREDENTIALS, processKartoshkaJoke, { msg, teleBot })
   }
@@ -79,5 +99,6 @@ function rememberTweet (msg, teleBot) {
 module.exports = {
   rememberTweet,
   eJunior,
-  kartoshkaJoke
+  kartoshkaJoke,
+  eInd
 }
