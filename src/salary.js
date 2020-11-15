@@ -1,15 +1,15 @@
-const mongoose = require('mongoose')
-mongoose.connect(
-  process.env.MONGODB_URI,
-  { useNewUrlParser: true }
-)
+// const mongoose = require('mongoose')
+// mongoose.connect(
+//   process.env.MONGODB_URI,
+//   { useNewUrlParser: true }
+// )
 
-const Salary = mongoose.model('Salary', {
-  user: String,
-  salary: Number,
-  comment: String,
-  date: String
-})
+// const Salary = mongoose.model('Salary', {
+//   user: String,
+//   salary: Number,
+//   comment: String,
+//   date: String
+// })
 
 function publishSalary (msg, teleBot) {
   const query = Salary.find({})

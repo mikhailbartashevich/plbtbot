@@ -1,20 +1,20 @@
 const jokes = require('./jokes')
-const mongoose = require('mongoose')
-mongoose.connect(
-  process.env.MONGODB_URI,
-  { useNewUrlParser: true }
-)
+// const mongoose = require('mongoose')
+// mongoose.connect(
+//   process.env.MONGODB_URI,
+//   { useNewUrlParser: true }
+// )
 
-const Tweet = mongoose.model('Tweet', {
-  user: String,
-  tweet: String,
-  date: String
-})
+// const Tweet = mongoose.model('Tweet', {
+//   user: String,
+//   tweet: String,
+//   date: String
+// })
 
-const MemeStat = mongoose.model('MemeStat', {
-  id: String,
-  count: Number
-})
+// const MemeStat = mongoose.model('MemeStat', {
+//   id: String,
+//   count: Number
+// })
 
 const BULBA_ROOTS = JSON.parse(process.env.KARTOSHI)
 
@@ -60,9 +60,9 @@ function memasiki (msg, teleBot) {
   for (const config of configs) {
     for (const key of config.keys) {
       if (text.includes(key) && notNegative(text, config)) {
-        if (msg.chat.id == process.env.JOKES_CHAT_ID) {
-          saveMemeStat(config)
-        }
+        // if (msg.chat.id == process.env.JOKES_CHAT_ID) {
+        //   saveMemeStat(config)
+        // }
         teleBot.sendPhoto(id, config.meme, {
           fileName: 'meme.jpg',
           serverDownload: true

@@ -79,11 +79,11 @@ function initRoutes (teleBot) {
 
   teleBot.on(['/fiat'], msg => fiat.publishFiat(msg, teleBot))
 
-  initSplitwiseRoutes(teleBot)
+  // initSplitwiseRoutes(teleBot)
 
   initMoviesRoutes(teleBot)
 
-  initSalaryRoutes(teleBot)
+  // initSalaryRoutes(teleBot)
 
   teleBot.on(['text'], msg =>
     text.textProcessing(msg, teleBot, COLLECTED_MESSAGES)
